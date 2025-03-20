@@ -1,0 +1,169 @@
+﻿
+
+
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "ChamDiem";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        @{
+            var kh = (tb_KhoaHoc)ViewBag.KH;
+        }
+        <br />
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-header">
+                    <h4>Danh sách sinh viên tham gia khoá học @kh.MaKhoaHoc - @kh.tb_Monhoc.TenMonHoc</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="card col-12">
+                <div class="card">
+                    @using (Html.BeginForm("ChamDiem", "UserGiangVien", FormMethod.Post))
+                    {
+                        <input hidden name="hidden" value="@kh.ID" />
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover" id="chamdiem">
+                                @{
+
+                                    int i = 1;
+                                    <thead>
+                                        <tr>
+
+                                            <th>STT</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_SinhVien.MaSinhVien)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Điểm KTDK")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Điểm KTHP")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Kết quả")
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_SinhVien.MaSinhVien)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" max="10" id="diemktdk-@item.ID" name="Diemktdk-@item.ID" value="@item.diemKTDK" oninput="CheckNumber(this)" />
+                                                </td>
+                                                <td>
+                                                    <input type="number" min="0" max="10" id="diemkthp-@item.ID" name="Diemkthp-@item.ID" value="@item.diemKTHP" oninput="CheckNumber(this)" />
+                                                </td>
+                                                <td>
+                                                    @Init.getStrKetQua(item.KetQua)
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function CheckNumber(input) {
+        if (isNaN(input) || input < 0 || input > 10) {
+            input = 0;
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    var table = new DataTable('#chamdiem', {
+        /**/
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["SuccessChamDiem"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessChamDiem"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessChamDiem"] = null;
+    }
+}
+
+
+

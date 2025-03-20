@@ -1,0 +1,42 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model PagedList.IPagedList<QuanLyTruongDaiHoc.Models.tb_ThongBao>
+@using PagedList.Mvc;
+
+<div class="block">
+    <p class="title">Thông báo dành cho <b><i><span style="color: lightslategray">@ViewBag.StrDoiTuong</span></i></b></p>
+    @{
+        foreach (var item in Model)
+        {
+            <div id="alertBox-@item.ID" class="alert-box">
+                <input hidden name="hidden-@item.ID" value="@item.ID" />
+                <span class="close-btn" onclick="XoaThongBao(@item.ID)">&times;</span>
+                <p class="alert-title"><b>@item.TieuDe</b></p>
+                <p class="alert-content">@item.NoiDung</p>
+                @{
+                    <p class="alert-note">Đối tượng: @Init.getStrThongBao(item.DoiTuongNhanTB)</p>
+                }
+                <p class="alert-note">
+                    Do @item.tb_QuanTri.tb_ThongTinCaNhan.Hoten (@item.tb_QuanTri.MaQuanTri) đăng
+                </p>
+                <p class="alert-note">
+                    Ngày gửi: @item.NgayGui
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalChinhSuaThongBao-@item.ID">
+                        Chỉnh sửa
+                    </button>
+                    @Html.Action("ChinhSuaThongBao", "ThongBao", new { id = item.ID })
+                </div>
+            </div>
+        }
+    }
+
+    <div class="pagedlist">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("ThongBaoDoiTuong",
+            new { page = page, doiTuong = ViewBag.DoiTuong }))
+    </div>
+
+</div>
+<!-- Kết thúc -->

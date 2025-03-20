@@ -1,0 +1,86 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model tb_Monhoc
+
+<div class="modal fade" id="modalThemMonCoTheDay">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm môn học có thể dạy</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @{
+
+                    List<tb_Monhoc> dsmh = new List<tb_Monhoc>();
+                    if (ViewBag.DSMH != null)
+                    {
+                        dsmh = (List<tb_Monhoc>)ViewBag.DSMH;
+                    }
+                    using (Html.BeginForm("ThemMonCoTheDay", "UserGiangVien", FormMethod.Post))
+                    {
+                        @Html.DisplayName("Danh sách môn học thuộc chuyên ngành " + ((string)ViewBag.ChuyenNganh));
+                        <table id="dsachKhoaHoc" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MaMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LoaiMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SoTC)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SoTiet)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    foreach (var mh in dsmh)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" id="monhoc-@mh.ID" name="Monhoc-@mh.ID" />
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => mh.MaMonHoc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => mh.TenMonHoc)
+                                            </td>
+                                            <td>
+                                                @Html.Display(@Init.getStrLoaiMon(mh.LoaiMonHoc))
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => mh.SoTC)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => mh.SoTiet)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

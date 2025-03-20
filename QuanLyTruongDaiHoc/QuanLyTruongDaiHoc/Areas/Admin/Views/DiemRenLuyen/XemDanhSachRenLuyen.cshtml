@@ -1,0 +1,157 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model IEnumerable<tb_DanhGiaRL>
+
+@{
+    ViewBag.Title = "XemDanhSachRenLuyen";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <label> Danh sách bài đánh giá rèn luyện</label>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="danhsachdanhgiarenluyen">
+                            @{
+
+                                int i = 1;
+                                <thead>
+                                    <tr>
+
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_SinhVien.MaSinhVien)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_GiangVien.MaGiangVien)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_QuanTri.MaQuanTri)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TongDiem)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TongToiDa)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.XepLoai)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.GhiChu)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.HocKi)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Nam)
+                                        </th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_SinhVien.MaSinhVien)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                            </td>
+
+
+                                            @{
+                                                if (item.tb_GiangVien == null)
+                                                {
+                                                    <td>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.tb_GiangVien.MaGiangVien)
+                                                    </td>
+                                                }
+                                                if (item.tb_QuanTri == null)
+                                                {
+                                                    <td>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.tb_QuanTri.MaQuanTri)
+                                                    </td>
+                                                }
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TongDiem)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TongToiDa)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.XepLoai)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.GhiChu)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.HocKi)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Nam)
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalXemChiTietDGDRL-@item.ID">
+                                                        Xem chi tiết
+                                                    </button>
+                                                    @Html.Action("XemChiTietDGDRL", "DiemRenLuyen", new { id = item.ID })
+                                                </td>
+                                            }
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#danhsachdanhgiarenluyen', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+

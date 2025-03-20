@@ -1,0 +1,98 @@
+﻿
+
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+@using QuanLyTruongDaiHoc.Models
+
+@{
+    ViewBag.Title = "XemDiem";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+@{
+    var nganh = (tb_Nganh)ViewBag.Nganh;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Hành trình học vấn ngành @nganh.TenNganh</h4>
+                    </div>
+
+                    @{
+                        <input name="Manganh" hidden value="@nganh.ID" />
+                        foreach (var item in ViewBag.HocKi)
+                        {
+                            <div class="card-header">
+                                <label> Năm @item.Nam - Học kì @item.Hocki</label>
+                            </div>
+                            <div class="card-body">
+
+
+
+                                <table class="table table-bordered table-hover" id="chuongtrinhdaotao">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã môn học</th>
+                                            <th class="col-6">Tên môn học</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_KhoaHoc.tb_GiangVien.MaGiangVien)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.diemKTDK)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.diemKTHP)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.KetQua)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var itemchild in Model)
+                                        {
+                                            if (itemchild.Nam == item.Nam && itemchild.HocKi == item.Hocki)
+                                            {
+                                                <tr id="trctdt-@itemchild.ID">
+                                                    <td>@Html.DisplayFor(modelItem => itemchild.tb_Monhoc.MaMonHoc)</td>
+                                                    <td>@Html.DisplayName(itemchild.tb_Monhoc.TenMonHoc + " (" + Init.getStrLoaiMon(itemchild.tb_Monhoc.LoaiMonHoc) + ")") </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.tb_KhoaHoc.tb_GiangVien.MaGiangVien)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.diemKTDK)
+                                                    </td>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.diemKTHP)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayName(Init.getStrKetQua(itemchild.KetQua))
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+

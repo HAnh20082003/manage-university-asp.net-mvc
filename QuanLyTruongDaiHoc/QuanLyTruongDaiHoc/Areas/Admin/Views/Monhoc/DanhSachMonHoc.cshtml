@@ -1,0 +1,142 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Monhoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhSachMonHoc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+@Html.Action("ThemMonHoc", "Monhoc")
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemMonHoc">
+                                Thêm môn học
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="monhoc">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" onclick="toggle(this)" /></th>
+                                    <th>STT</th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MaMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LoaiMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SoTC)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SoTiet)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_Nganh.MaNganh)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <th><input type="checkbox" class="IDMonHoc1" value="@item.ID" /></th>
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaMonHoc)
+                                            </td>
+                                            <td class="col-3">
+                                                @Html.DisplayFor(modelItem => item.TenMonHoc)
+                                            </td>
+                                            <td>
+                                                @Init.getStrLoaiMon(item.LoaiMonHoc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SoTC)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SoTiet)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_Nganh.MaNganh)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalSuaThongTinMonHoc-@item.ID">
+                                                    Chỉnh sửa
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaMonHoc-@item.ID">
+                                                    Xóa môn
+                                                </button>
+                                                @Html.Action("SuaThongTinMonHoc", "Monhoc", new { id = item.ID })
+                                                @Html.Action("XoaMonHoc", "Monhoc", new { id = item.ID })
+
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+
+<script language="JavaScript">
+    function toggle(source) {
+        var checkboxes = document.getElementsByClassName('IDMonHoc1');
+        document.getElementsByClassName('IDMonHoc1');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+        console.log(checkboxes.length);
+        var i = 0;
+
+
+    }
+</script>
+
+<script>
+    //new DataTable('#example-1');
+    //new DataTable('#example-2');
+
+    var table = new DataTable('#monhoc', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+

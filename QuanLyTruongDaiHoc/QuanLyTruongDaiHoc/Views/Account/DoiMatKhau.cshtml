@@ -1,0 +1,124 @@
+﻿
+@model QuanLyTruongDaiHoc.Models.tb_TaiKhoan
+@using QuanLyTruongDaiHoc.Models;
+
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                @{
+                    if (Session["LoaiTK"].ToString() == Init.TaiKhoanGV)
+                    {
+                        <a href="@Url.Action("TrangChu", "UserGiangVien")" class="h1"><b>Trường đại học</b></a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("TrangChu", "UserSinhVien")" class="h1"><b>Trường đại học</b></a>
+                    }
+                    <p>@Session["LoaiTK"]</p>
+                }
+            </div>
+            <div class="card-body">
+                <form action="@Url.Action("DoiMatKhau", "Account")" method="post">
+                    <input hidden name="id" value="@Model.ID" />
+                    <div class="input-group mb-3">
+                        Tên đăng nhập: @Model.TenDangNhap
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="mkcu" type="password" class="form-control" placeholder="Nhập mật khẩu cũ" value="@Session["MKCu"]">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="mkmoi" type="password" class="form-control" placeholder="Nhập mật khẩu mới">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-block btn-primary">Đổi mật khẩu</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    var toastMixin = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+@*document.getElementById('error').addEventListener('click', function () {
+        toastMixin.fire({
+            animation: true,
+            title: '@Session["Loi"]',
+            icon: 'error'
+        });
+    });*@
+
+
+
+</script>
+
+@{
+    if (Session["Error_DoiMatKhau"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_DoiMatKhau"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_DoiMatKhau"] = null;
+    }
+}
+
+
+
+
+

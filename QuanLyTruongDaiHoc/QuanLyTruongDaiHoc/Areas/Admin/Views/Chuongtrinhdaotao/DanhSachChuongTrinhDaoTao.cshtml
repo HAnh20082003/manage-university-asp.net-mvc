@@ -1,0 +1,113 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Nganh>
+
+@{
+    ViewBag.Title = "DanhSachChuongTrinhDaoTao";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Danh sách chương trình đào tạo theo ngành</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="nganhdaotao">
+                            @{
+
+                                int i = 1;
+                                <thead>
+                                    <tr>
+
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MaNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TenNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NamDaotao)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Mota)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_KhoaVien.MaKhoaVien)
+                                        </th>
+
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NamDaotao)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mota)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_KhoaVien.MaKhoaVien)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Xem CTDT", "XemCTDT", "Chuongtrinhdaotao", new { id = item.ID }, new { @class = "btn btn-sm btn-primary" })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#nganhdaotao', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+
+    });
+
+</script>
+
+

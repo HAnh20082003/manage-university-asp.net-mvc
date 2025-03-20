@@ -1,0 +1,183 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyNghiPhep>
+@using QuanLyTruongDaiHoc.Models;
+
+@{
+    ViewBag.Title = "DanhSachNghiPhep";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalVietDonNghiPhep">
+                                Viết đơn
+                            </button>
+                            @Html.Action("VietDonNghiPhep", "UserGiangVien")
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <label>Danh sách đơn xin nghỉ phép</label>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="danhsachnghiphep">
+                            @{
+                                int i = 1;
+                                <thead>
+                                    <tr>
+
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NgayNghi)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LyDo)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NgayGui)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TrangThai)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_QuanTri.MaQuanTri)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PhanHoi)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NgayDuyet)
+                                        </th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayNghi)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LyDo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayGui)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayName(Init.getStrTrangThai(item.TrangThai))
+                                            </td>
+                                            @{
+                                                if (item.tb_QuanTri != null)
+                                                {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.tb_QuanTri.MaQuanTri)
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                    </td>
+                                                }
+                                            }
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PhanHoi)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayDuyet)
+                                            </td>
+
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalChinhSuaDonNghiPhep-@item.ID">
+                                                    Chỉnh sửa
+                                                </button>
+                                                @Html.Action("ChinhSuaDonNghiPhep", "UserGiangVien", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#danhsachnghiphep', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["SuccessGuiDon"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessGuiDon"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessGuiDon"] = null;
+    }
+}
+

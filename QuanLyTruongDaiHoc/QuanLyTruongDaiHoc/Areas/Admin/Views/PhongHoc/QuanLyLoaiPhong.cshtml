@@ -1,0 +1,146 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_LoaiPhong>
+@{
+    ViewBag.Title = "QuanLyLoaiPhong";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@Html.Action("ThemLoaiPhong", "PhongHoc")
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-header">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemLoaiPhong">
+                            Thêm loại phòng
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="card col-12">
+                <div class="card-header">
+                    <h3>Danh sách loại phòng</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @{
+                            foreach (var item in Model)
+                            {
+                                <div class="col-md-3">
+                                    <div class="small-box bg-info">
+                                        <button data-toggle="modal" data-target="#modalXoaLoaiPhong-@item.ID" class="btn btn-sm btn-warning">Xóa</button>
+                                        <div class="inner">
+                                            <h3>@item.Ten</h3>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="nav-icon fa fa-book"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                @Html.Action("XoaLoaiPhong", "PhongHoc", new { id = item.ID })
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        @Html.ActionLink("Quay lại quản lý phòng học", "DanhSachPhongHoc", "PhongHoc", null, new { @class = "btn btn-primary me-md-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@{
+    if (Session["SuccessThemLoaiPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemLoaiPhong"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessThemLoaiPhong"] = null;
+    }
+    if (Session["SuccessXoaLoaiPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessXoaLoaiPhong"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessXoaLoaiPhong"] = null;
+    }
+    if (Session["ErrorXoaLoaiPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorXoaLoaiPhong"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorXoaLoaiPhong"] = null;
+    }
+}
+
+

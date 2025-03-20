@@ -1,0 +1,178 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_TaiKhoan>
+
+@{
+    ViewBag.Title = "DanhSachTaiKhoan";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    @{
+                        Html.RenderAction("TaiKhoanQT", "QuanLyTaiKhoan");
+                        Html.RenderAction("TaiKhoanGV", "QuanLyTaiKhoan");
+                        Html.RenderAction("TaiKhoanSV", "QuanLyTaiKhoan");
+                    }
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function checkNumber(input) {
+        if (isNaN(input.value) || input.value < 0) {
+            input.value = "";
+        }
+    }
+    function XoaNoiDungRL(id) {
+        var div = document.getElementById(`divdanhsachnoidungrenluyen-${id}`);
+        div.remove();
+    }
+
+    function XoachitietEdit(id) {
+        var tr = document.getElementById(`tredit-${id}`);
+        var tbody = tr.closest('tbody');
+        tbody.removeChild(tr);
+    }
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["Success_ChinhSuaTaiKhoan"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Success_ChinhSuaTaiKhoan"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["Success_ChinhSuaTaiKhoan"] = null;
+    }
+    if (Session["Error_ChinhSuaTaiKhoan"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ChinhSuaTaiKhoan"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ChinhSuaTaiKhoan"] = null;
+    }
+    if (Session["Success_XoaTaiKhoan"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Success_XoaTaiKhoan"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["Success_XoaTaiKhoan"] = null;
+    }
+    if (Session["Error_XoaTaiKhoan"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_XoaTaiKhoan"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_XoaTaiKhoan"] = null;
+    }
+}
+
+
+
+

@@ -1,0 +1,66 @@
+﻿
+
+@model QuanLyTruongDaiHoc.Models.tb_YeuCauGiayChungNhan
+@using QuanLyTruongDaiHoc.Models;
+
+<div class="modal fade" id="modalThemYeuCauCapGiay">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @using (Html.BeginForm("ThemYeuCauCapGiay", "UserSinhVien", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm yêu cầu cấp giấy chứng nhận</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.Label("Giấy chứng nhận", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+
+                                <select name="GiayChungNhan" class="form-control">
+                                    @{
+                                        List<tb_GiayChungNhan> giaychungnhans = (List<tb_GiayChungNhan>)ViewBag.GiayChungNhan;
+                                        if (giaychungnhans.Count != 0)
+                                        {
+
+                                            <option value="@giaychungnhans[0].ID" selected>@giaychungnhans[0].Ten</option>
+                                        }
+                                        for (int i = 1; i < giaychungnhans.Count; i++)
+                                        {
+                                            <option value="@giaychungnhans[i].ID">@giaychungnhans[i].Ten</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThongTinYeuCau, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                <textarea id="Yeucau" name="YeuCau" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+

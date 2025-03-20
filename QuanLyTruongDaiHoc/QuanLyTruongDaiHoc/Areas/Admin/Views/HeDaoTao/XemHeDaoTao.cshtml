@@ -1,0 +1,220 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Nganh>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+@{
+    ViewBag.Title = "XemHeDaoTao";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+<hr />
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modal-lg">
+        Thêm ngành đào tạo
+    </button>
+</div>
+<!-- /.modal -->
+<hr />
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("Create", "HeDaoTao"))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm ngành</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("MaNganh", "Mã Ngành", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.Editor("MaNganh", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("MaNganh", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("TenNganh", "Tên Ngành", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.Editor("TenNganh", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("TenNganh", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("MaKhoaVien", "Tên khoa", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("MaKhoaVien", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessage("MaKhoaVien", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("NamDaotao", "Năm Đào tạo", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.Editor("NamDaotao", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("NamDaotao", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Mota", "Mô tả", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @Html.TextArea("Mota", "", new { @class = "form-control" })
+                                @Html.ValidationMessage("Mota", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>*@
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                @{
+                    int i = 1;
+                    <div class="card">
+
+                        @*<div class="card-header">
+                                <h3 class="card-title">@item1.TenKhoaVien</h3>
+                            </div>*@
+                        <!-- /.card-header -->
+                        <div class="card-body">
+
+
+                            <table id="example-1" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MaNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TenNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NamDaotao)
+                                        </th>
+
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_KhoaVien.TenKhoaVien)
+                                        </th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NamDaotao)
+                                            </td>
+
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_KhoaVien.TenKhoaVien)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                                @Html.ActionLink("Chương trình đào tạo", "Details", new { id = item.ID }, new { @class = "btn btn-sm btn-primary" }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+
+
+
+
+
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+                }
+
+
+
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    //new DataTable('#example-1');
+    //new DataTable('#example-2');
+
+    var table = new DataTable('#example-1', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+    var table = new DataTable('#example-2', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+</script>

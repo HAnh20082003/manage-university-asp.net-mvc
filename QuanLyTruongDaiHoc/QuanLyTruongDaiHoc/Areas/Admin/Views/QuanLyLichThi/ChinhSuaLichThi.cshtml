@@ -1,0 +1,134 @@
+﻿
+@model QuanLyTruongDaiHoc.Models.tb_ThongTinNgayThi
+@using QuanLyTruongDaiHoc.Models;
+
+@{ 
+
+    List<tb_GiangVien> gv = (List<tb_GiangVien>)ViewBag.GV;
+}
+
+<div class="modal fade" id="modalChinhSuaLichThi">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thêm lịch khoá học</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("ChinhSuaLichThi", "QuanLyLichThi", FormMethod.Post))
+                {
+                    <input hidden name="hidden" value="@Model.ID" />
+                    <div class="form-group">
+                        @Html.DisplayName("Ngày thi")
+                        <div class="col-md-12">
+                            <input type="date" required id="ngaythi" name="Ngaythi" value="@ConvertDate.getStrDate(@Model.NgayThi)"  />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayName("Phòng thi")
+                        <div class="col-md-12">
+                            <select name="Phongthi" required>
+                                @{
+                                    if (ViewBag.DSPH != null)
+                                    {
+                                        List<tb_PhongHoc> dsph = (List<tb_PhongHoc>)ViewBag.DSPH;
+                                        foreach (var item in dsph)
+                                        {
+                                            if (item.ID == Model.PhongThi)
+                                            {
+                                                <option selected value="@item.ID">
+                                                    @item.MaPhongHoc
+                                                </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.ID">
+                                                    @item.MaPhongHoc
+                                                </option>
+                                            }
+                                        }
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.DisplayName("Giờ bắt đầu")
+                        <div class="col-md-12">
+                            <input type="text" required id="giobatdau" name="Giobatdau" value="@Model.GioBatDau" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayName("Thời lượng (phút)")
+                        <div class="col-md-12">
+                            <input type="number" min="0" required id="thoiluong" name="Thoiluong" value="@Model.ThoiLuong" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayName("Giám thị 1")
+                        <div class="col-md-12">
+                            <select name="GiamThi1" required>
+                                @{
+                                    foreach (var item in gv)
+                                    {
+                                        if (item.ID == Model.ID_GiamThi1)
+                                        {
+                                            <option selected value="@item.ID">
+                                                @item.tb_ThongTinCaNhan.Hoten
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.ID">
+                                                @item.tb_ThongTinCaNhan.Hoten
+                                            </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayName("Giám thị 2")
+                        <div class="col-md-12">
+
+                        </div>
+                        <select name="GiamThi2" required>
+                            @{
+                                foreach (var item in gv)
+                                {
+                                    if (item.ID == Model.ID_GiamThi2)
+                                    {
+                                        <option selected value="@item.ID">
+                                            @item.tb_ThongTinCaNhan.Hoten
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.ID">
+                                            @item.tb_ThongTinCaNhan.Hoten
+                                        </option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary me-md-2">
+                            Xác nhận
+                        </button>
+                    </div>
+                    }
+                </div>
+        </div>
+    </div>
+</div>
+
+

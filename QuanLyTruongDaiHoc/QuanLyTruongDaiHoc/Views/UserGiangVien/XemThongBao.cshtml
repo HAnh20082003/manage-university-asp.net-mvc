@@ -1,0 +1,131 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model PagedList.IPagedList<QuanLyTruongDaiHoc.Models.tb_ThongBao>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "XemThongBao";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<style>
+    .alert-box {
+        margin-left: 20px;
+        margin-top: 20px;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        display: block;
+        width: 1100px;
+    }
+
+    .new {
+        background-color: cornsilk;
+    }
+
+    .alert-note {
+        font-size: 15px;
+        color: dimgray;
+    }
+
+    .alert-title {
+        color: cadetblue;
+        font-size: 30px;
+    }
+
+    .alert-content {
+        color: darkslategray;
+        font-size: 20px;
+    }
+
+    .alert-box p {
+        margin: 0;
+    }
+
+    .close-btn {
+        float: right;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .pagedlist {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .block {
+        margin-bottom: 50px;
+        margin-left: 10px;
+    }
+
+    .title {
+        font-size: 25px;
+        margin-left: 20px;
+    }
+</style>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Thông báo cho bạn</h4>
+                    </div>
+                    <div class="card-body">
+                        @{
+                            if (ViewBag.ThongBaoMoiNhat != null)
+                            {
+                                var newest = (tb_ThongBao)ViewBag.ThongBaoMoiNhat;
+                                <div class="block">
+                                    <div id="alertBox" class="alert-box new">
+                                        @*<span class="close-btn" onclick="closeAlert()">&times;</span>*@
+                                        <p class="alert-note"><b><i>Tin mới nhất</i></b></p>
+                                        <p class="alert-title"><b>@newest.TieuDe</b></p>
+                                        <p class="alert-content">@newest.NoiDung</p>
+                                        <p class="alert-note">
+                                            Do @newest.tb_QuanTri.tb_ThongTinCaNhan.Hoten (@newest.tb_QuanTri.MaQuanTri) đăng
+                                        </p>
+                                        <p class="alert-note">
+                                            Ngày gửi: @newest.NgayGui
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                            foreach (var item in Model)
+                            {
+                                <div id="alertBox-@item.ID" class="alert-box">
+                                    <p class="alert-title"><b>@item.TieuDe</b></p>
+                                    <p class="alert-content">@item.NoiDung</p>
+                                    <p class="alert-note">
+                                        Do @item.tb_QuanTri.tb_ThongTinCaNhan.Hoten (@item.tb_QuanTri.MaQuanTri) đăng
+                                    </p>
+                                    <p class="alert-note">
+                                        Ngày gửi: @item.NgayGui
+                                    </p>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="pagedlist">
+                        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+                        @Html.PagedListPager(Model, page => Url.Action("XemThongBao",
+                            new { page }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

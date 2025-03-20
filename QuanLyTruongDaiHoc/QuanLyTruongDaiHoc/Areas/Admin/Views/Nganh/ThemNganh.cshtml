@@ -1,0 +1,80 @@
+﻿<div class="modal fade" id="modalThemNganh">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("ThemNganh", "Nganh"))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm ngành</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.Label("MaNganh", "Mã Ngành", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.Editor("MaNganh", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("MaNganh", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("TenNganh", "Tên Ngành", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.Editor("TenNganh", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("TenNganh", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("MaKhoaVien", "Tên khoa", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("MaKhoaVien", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessage("MaKhoaVien", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("NamDaotao", "Năm Đào tạo", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.Editor("NamDaotao", new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessage("NamDaotao", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Mota", "Mô tả", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.TextArea("Mota", "", new { @class = "form-control" })
+                                @Html.ValidationMessage("Mota", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @*<div class="form-group">
+                                <div class="col-md-offset-2 col-md-12">
+                                    <input type="submit" value="Create" class="btn btn-default" />
+                                </div>
+                            </div>*@
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

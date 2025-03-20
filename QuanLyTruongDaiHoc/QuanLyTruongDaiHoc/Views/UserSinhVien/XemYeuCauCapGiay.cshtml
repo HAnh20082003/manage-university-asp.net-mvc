@@ -1,0 +1,188 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_YeuCauGiayChungNhan>
+@using QuanLyTruongDaiHoc.Models;
+
+@{
+    ViewBag.Title = "XemYeuCauCapGiay";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemYeuCauCapGiay">
+                                Thêm yêu cầu cấp giấy mới
+                            </button>
+                            @Html.Action("ThemYeuCauCapGiay", "UserSinhVien")
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <label> Yêu cầu cấp giấy của bạn</label>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover" id="themyeucaucapgiay">
+                                @{
+
+                                    int i = 1;
+                                    <thead>
+                                        <tr>
+
+                                            <th>STT</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_GiayChungNhan.Ten)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ThongTinYeuCau)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NgayYeuCau)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.TrangThai)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_QuanTri.MaQuanTri)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.PhanHoi)
+                                            </th>
+
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.NgayDuyet)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+
+                                                <td>@i</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_GiayChungNhan.Ten)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ThongTinYeuCau)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NgayYeuCau)
+                                                </td>
+                                                @{
+                                                    if (item.TrangThai == Init.DaDuyet)
+                                                    {
+                                                        <td>
+                                                            @Init.StrDaDuyet
+                                                        </td>
+                                                    }
+                                                    else if (item.TrangThai == Init.DoiDuyet)
+                                                    {
+                                                        <td>
+                                                            @Init.StrDoiDuyet
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            @Init.StrTuChoiDuyet
+                                                        </td>
+                                                    }
+                                                    if (item.tb_QuanTri != null)
+                                                    {
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.tb_QuanTri.MaQuanTri)
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td> </td>
+                                                    }
+                                                }
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.PhanHoi)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NgayDuyet)
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#themyeucaucapgiay', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+</script>
+
+@{
+    if (Session["SuccessThemYeuCau"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemYeuCau"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThemYeuCau"] = null;
+    }
+}
+
+

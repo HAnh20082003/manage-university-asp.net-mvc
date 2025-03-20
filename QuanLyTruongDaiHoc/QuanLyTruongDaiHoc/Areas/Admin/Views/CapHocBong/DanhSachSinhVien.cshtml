@@ -1,0 +1,228 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhSachSinhVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    List<tb_KhoaVien> khoa = null;
+    if (ViewBag.Khoa != null)
+    {
+        khoa = (List<tb_KhoaVien>)ViewBag.Khoa;
+    }
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            @Html.ActionLink("In danh sách", "InDanhSach", "CapHocBong", new { @class = "btn btn-lg btn-success me-md-2" })
+                        </div>
+                    </div>
+                    @{
+                        using (Html.BeginForm("CapHocBong", "CapHocBong", FormMethod.Post))
+                        {
+                            <div class="card-header">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                        Cấp học bổng
+                                    </button>
+                                </div>
+                            </div>
+
+                            if (khoa != null)
+                            {
+
+                                foreach (var item in khoa)
+                                {
+                                    <div class="card-header">
+                                        <h4>Khoa @item.TenKhoaVien</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-bordered table-hover" id="dssv-@item.ID">
+                                            @{
+                                                <thead>
+                                                    <tr>
+                                                        <th>STT</th>
+                                                        <th>
+                                                            @Html.DisplayName("Mã sinh viên")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Họ tên")
+
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Ngành")
+
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Học kì")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Năm")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Điểm tổng kết")
+                                                        </th>
+                                                        <th>
+                                                            @Html.DisplayName("Điểm rèn luyện")
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @{
+                                                        var dsngannh = item.tb_Nganh;
+                                                        int i = 1;
+                                                        foreach (var nganh in dsngannh)
+                                                        {
+                                                            var dssv = nganh.tb_SinhVien;
+                                                            foreach (var sv in dssv)
+                                                            {
+                                                                var hkAndNam = Init.calculateHocKiNam(sv.NgayNhapHoc);
+                                                                var dkmh = sv.tb_DangKyMonHoc.Where(n => n.HocKi == hkAndNam.Item1 && n.Nam == hkAndNam.Item2).ToList();
+                                                                var dgrl = sv.tb_DanhGiaRL.SingleOrDefault(n => n.HocKi == hkAndNam.Item1 && n.Nam == hkAndNam.Item2);
+                                                                double? diemtk = Init.calcutelateDiem(dkmh);
+                                                                if (dgrl != null)
+                                                                {
+                                                                    var strDiemrl = Init.getStrXepLoaiRL(dgrl.TongDiem, dgrl.TongToiDa);
+                                                                    if ((strDiemrl == Init.LoaiGioi || strDiemrl == Init.LoaiXuatSac) && diemtk >= 8 && Init.calculateSoTC(dkmh) >= Init.calculatSoTCYC(sv.tb_Nganh.tb_Chuongtrinhdaotao.Where(n => n.Hocki == hkAndNam.Item1 && n.Nam == hkAndNam.Item2).ToList()))
+                                                                    {
+                                                                        <tr>
+                                                                            <td>
+                                                                                @i
+                                                                                <input hidden name="sv-@sv.ID" value="abc" />
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => sv.MaSinhVien)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => sv.tb_ThongTinCaNhan.Hoten)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => sv.tb_Nganh.TenNganh)
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @hkAndNam.Item1
+                                                                            </td>
+                                                                            <td>
+                                                                                @hkAndNam.Item2
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayName(diemtk.ToString())
+                                                                            </td>
+                                                                            <td>
+                                                                                @{
+                                                                                    if (dgrl != null)
+                                                                                    {
+                                                                                        @Html.DisplayName(dgrl.TongDiem.ToString())
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        @Html.DisplayName("0")
+                                                                                    }
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                        i++;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                </tbody>
+
+                                            }
+                                        </table>
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+@{
+    foreach (var item in khoa)
+    {
+
+        <script>
+
+            var table = new DataTable('#dssv-@item.ID', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+        </script>
+    }
+}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["SuccessCapHocBong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessCapHocBong"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessCapHocBong"] = null;
+    }
+}

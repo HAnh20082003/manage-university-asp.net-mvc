@@ -1,0 +1,63 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_ChiTietKhoaHoc>
+
+<table class="table table-bordered table-hover" id="lichhoc">
+    @{
+
+        int i = 1;
+        <thead>
+            <tr>
+
+                <th>STT</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ngay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tb_PhongHoc.MaPhongHoc)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.TietBatDau)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.TietKetThuc)
+                </th>
+                <th class="col-1">
+                    @Html.DisplayNameFor(model => model.soTiet)
+                </th>
+                <th>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@i</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ngay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tb_PhongHoc.MaPhongHoc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TietBatDau)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TietKetThuc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.soTiet)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaLichHoc-@item.ID">
+                            Xóa
+                        </button>
+                        @Html.Action("XoaLichHoc", "KhoaHoc", new { @id = item.ID })
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    }
+</table>
+

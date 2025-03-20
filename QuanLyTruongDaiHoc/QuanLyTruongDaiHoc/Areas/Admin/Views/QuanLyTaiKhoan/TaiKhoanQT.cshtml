@@ -1,0 +1,62 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_TaiKhoan>
+
+<div class="card-header">
+    <h4>Quản lý tài khoản quản trị </h4>
+</div>
+<div class="card-body">
+    <table class="table table-bordered table-hover" id="taikhoanqt">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenDangNhap)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MatKhau)
+                </th>
+                <th>
+                    Chức năng
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@Html.DisplayFor(modelItem => item.TenDangNhap)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                        <td class="col-3">
+                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalChinhSuaTaiKhoan-@item.ID">
+                                Chỉnh sửa
+                            </button>
+                            @Html.Action("ChinhSuaTaiKhoan", "QuanLyTaiKhoan", new { id = item.ID })
+
+                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaTaiKhoan-@item.ID">
+                                Xoá
+                            </button>
+                            @Html.Action("XoaTaiKhoan", "QuanLyTaiKhoan", new { id = item.ID })
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#taikhoanqt', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>

@@ -1,0 +1,94 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@using (Html.BeginForm("ThemKhoaHoc", "KhoaHoc", FormMethod.Post, new { @id = "KhoaHocTheoNganh" }))
+{
+    <div class="modal-header">
+        <h4 class="modal-title">Thêm khóa học</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Hệ đào tạo</label>
+                <div class="col-md-12">
+                    @Html.DropDownList("HeDaoTao", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Chuyên Ngành</label>
+                <div class="col-md-12">
+                    @Html.DropDownList("Nganh", null, htmlAttributes: new { @class = "form-control", @id = "Nganh", @onchange = "changeValueBaseOnNganh()" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Môn học</label>
+                <div class="col-md-12">
+                    @Html.DropDownList("MonHoc", null, htmlAttributes: new { @class = "form-control", @onchange = "changeValueBaseOnNganh()" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Giảng viên giảng dạy</label>
+                <div class="col-md-12">
+                    @Html.DropDownList("GiangVien", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label>Số lượng</label>
+                <div class="col-md-12">
+                    <input type="number" min="1" max="200" name="SoLuong" class="form-control" required />
+                </div>
+
+            </div>
+            </div>
+            <div class="form-group">
+                <label>Trạng thái</label>
+                <div class="col-md-12" id="rdiTrangThai">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="TrangThai1" name="TrangThai" value="@Init.HoatDong" checked>
+                        <label class="form-check-label" for="TrangThai1">
+                            @Init.strHoatDong
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="TrangThai2" name="TrangThai" value="@Init.DaKetThuc">
+                        <label class="form-check-label" for="TrangThai2">
+                            @Init.strDaKetThuc
+                        </label>
+                    </div>
+                </div>
+        </div>
+
+
+
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+        <button type="submit" class="btn btn-primary">Thêm</button>
+    </div>
+}
+
+
+<script>
+    function changeValueBaseOnNganh() {
+
+        const Nganh = document.getElementById('Nganh').value;
+        const MonHoc = document.getElementById('MonHoc').value;
+        const url = new URL('@Url.Action("ThemKhoaHocTheoNganh", "KhoaHoc")', location.origin);
+        url.searchParams.set('MonHoc', MonHoc);
+        url.searchParams.set('Nganh', Nganh);
+        console.log(url.href);
+        $('#KhoaHocTheoNganh').load(url.href);
+    }
+</script>
+
+

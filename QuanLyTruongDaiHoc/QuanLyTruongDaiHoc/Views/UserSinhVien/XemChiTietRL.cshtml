@@ -1,0 +1,143 @@
+﻿
+
+@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_DanhGiaRL
+@{
+    List<tb_NoiDungRenLuyen> ndrl = (List<tb_NoiDungRenLuyen>)ViewBag.NoiDungRL;
+}
+<div class="modal fade" id="modalXemChiTietRL-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đánh giá rèn luyện</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @{
+
+                if (ViewBag.NoiDungRL != null)
+                {
+                    List<tb_ChiTietDanhGiaRL> chitietDGRL = Model.tb_ChiTietDanhGiaRL.ToList();
+                    foreach (var nd in ndrl)
+                    {
+                        <div class="modal-header">
+                            <h4 class="modal-title">@nd.MaNoiDung - @nd.TenNoiDung</h4>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-hover" id="xemdsdg-@nd.ID">
+                                @{
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Mã chi tiết
+                                            </th>
+                                            <th class="col-6">
+                                                Tên chi tiết
+                                            </th>
+                                            <th>
+                                                Điểm SV
+                                            </th>
+                                            <th>
+                                                Điểm GV
+                                            </th>
+                                            <th>
+                                                Điểm QT
+                                            </th>
+                                            <th>
+                                                Điểm tối đa
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @{
+                                            var chitietNDRL = nd.tb_ChiTietNoiDungRenLuyen;
+                                            foreach (var ctdgrl in chitietNDRL)
+                                            {
+                                                var chitiet = chitietDGRL.SingleOrDefault(n => n.ID_DanhGiaRL == Model.ID && n.ID_ChiTietNoiDung == ctdgrl.ID);
+
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => ctdgrl.MaChiTiet)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => ctdgrl.TenChiTiet)
+                                                    </td>
+                                                    @{
+                                                        if (chitiet != null)
+                                                        {
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => chitiet.DiemSVDanhGia)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => chitiet.DiemGVDanhGia)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => chitiet.DiemQTDanhGia)
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                @Html.DisplayName("0")
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayName("0")
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayName("0")
+                                                            </td>
+                                                        }
+                                                    }
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => ctdgrl.DiemToiDa)
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+
+                                }
+                            </table>
+                        </div>
+                    }
+                }
+            }
+        <div class="modal-body">
+            <div class="form-control">
+                Tổng điểm: @Model.TongDiem
+            </div>
+            <div class="form-control">
+                Xếp loại: @Model.XepLoai
+            </div>
+            <div class="form-control">
+                Học kì: @Model.HocKi
+            </div>
+            <div class="form-control">
+                Năm: @Model.Nam
+            </div>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+@{
+    foreach (var item in ndrl)
+    {
+        <script>
+
+
+            var table = new DataTable('#xemdsdg-@item.ID', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+        </script>
+    }
+}
+

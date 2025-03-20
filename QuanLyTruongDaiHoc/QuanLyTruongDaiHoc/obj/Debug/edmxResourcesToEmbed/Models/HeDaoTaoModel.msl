@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuanLyDaiHocModelStoreContainer" CdmEntityContainer="QuanLyDaiHocEntities">
+    <EntitySetMapping Name="tb_Chuongtrinhdaotao">
+      <EntityTypeMapping TypeName="QuanLyDaiHocModel.tb_Chuongtrinhdaotao">
+        <MappingFragment StoreEntitySet="tb_Chuongtrinhdaotao">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MaNganh" ColumnName="MaNganh" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="BatBuoc" ColumnName="BatBuoc" />
+          <ScalarProperty Name="Hocki" ColumnName="Hocki" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_KhoaVien">
+      <EntityTypeMapping TypeName="QuanLyDaiHocModel.tb_KhoaVien">
+        <MappingFragment StoreEntitySet="tb_KhoaVien">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MaKhoaVien" ColumnName="MaKhoaVien" />
+          <ScalarProperty Name="TenKhoaVien" ColumnName="TenKhoaVien" />
+          <ScalarProperty Name="Mota" ColumnName="Mota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Monhoc">
+      <EntityTypeMapping TypeName="QuanLyDaiHocModel.tb_Monhoc">
+        <MappingFragment StoreEntitySet="tb_Monhoc">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MaMonHoc" ColumnName="MaMonHoc" />
+          <ScalarProperty Name="TenMonHoc" ColumnName="TenMonHoc" />
+          <ScalarProperty Name="ChuyenNganh" ColumnName="ChuyenNganh" />
+          <ScalarProperty Name="LoaiMonHoc" ColumnName="LoaiMonHoc" />
+          <ScalarProperty Name="SoTC" ColumnName="SoTC" />
+          <ScalarProperty Name="SoTiet" ColumnName="SoTiet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Nganh">
+      <EntityTypeMapping TypeName="QuanLyDaiHocModel.tb_Nganh">
+        <MappingFragment StoreEntitySet="tb_Nganh">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MaNganh" ColumnName="MaNganh" />
+          <ScalarProperty Name="TenNganh" ColumnName="TenNganh" />
+          <ScalarProperty Name="MaKhoaVien" ColumnName="MaKhoaVien" />
+          <ScalarProperty Name="NamDaotao" ColumnName="NamDaotao" />
+          <ScalarProperty Name="Mota" ColumnName="Mota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

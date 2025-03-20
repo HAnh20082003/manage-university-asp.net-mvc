@@ -1,0 +1,136 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_LopHoc>
+@{
+    ViewBag.Title = "QuanLyLopCoVan";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card-header">
+                    <h4>Các lớp học giảng dạy</h4>
+                </div>
+
+                @{
+                    foreach (var item in Model)
+                    {
+                        int i = 1;
+                        <div class="card-header">
+                            <label> Lớp @item.MaLopHoc</label>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-bordered table-hover" id="danhsachlichthi-@item.ID">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("STT")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Mã sinh viên")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Họ tên")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Email")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("SDT")
+                                        </th>
+                                        <th>
+                                            Chức năng
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        var ds = item.tb_SinhVien;
+                                        foreach (var sv in ds)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @i
+                                                </td>
+                                                <td>
+                                                    @sv.MaSinhVien
+                                                </td>
+                                                <td>
+                                                    @sv.tb_ThongTinCaNhan.Hoten
+                                                </td>
+                                                <td>
+                                                    @sv.tb_ThongTinCaNhan.Email_2
+                                                </td>
+                                                <td>
+                                                    @sv.tb_ThongTinCaNhan.SDT
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalXemThongTinSV-@sv.ID">
+                                                        Xem thông tin
+                                                    </button>
+                                                    @Html.Action("XemThongTinSV", "UserGiangVien", new { id = sv.ID })
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                </tbody>
+
+                            </table>
+
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+@{
+    foreach (var item in Model)
+    {
+
+        <script>
+
+            var table = new DataTable(`#danhsachlichthi-@item.ID`, {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+        </script>
+    }
+}
+
+<script>
+    var table2 = new DataTable('#lichthihientai', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+

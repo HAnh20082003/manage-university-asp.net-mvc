@@ -1,0 +1,162 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_LopHoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhGiaRenLuyen";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+
+                @{
+                    foreach (var item in Model)
+                    {
+                        <div class="card">
+
+                            <div class="card-header">
+                                <label> Danh sách bài đánh giá của lớp @item.MaLopHoc</label>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover" id="dg-@item.ID">
+                                    @{
+                                        int i = 1;
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>
+                                                    @Html.DisplayName("Mã sinh viên")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Họ tên")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Tổng điểm")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Xếp loại")
+                                                </th>
+
+                                                <th>
+                                                    @Html.DisplayName("Ghi chú")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Học kì")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Năm")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Trạng thái")
+                                                </th>
+                                                <th>Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                var dssv = item.tb_SinhVien;
+                                                foreach (var sv in dssv)
+                                                {
+                                                    var hkAndNam = Init.calculateHocKiNam(sv.NgayNhapHoc);
+                                                    var dg = sv.tb_DanhGiaRL.SingleOrDefault(n => n.HocKi == hkAndNam.Item1 && n.Nam == hkAndNam.Item2);
+                                                    <tr>
+                                                        <td>@i</td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => sv.MaSinhVien)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => sv.tb_ThongTinCaNhan.Hoten)
+                                                        </td>
+
+                                                        @{
+                                                            if (dg == null)
+                                                            {
+                                                                <td>
+                                                                    @Html.DisplayName("0")
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    @Html.DisplayName("Chưa đánh giá")
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => dg.TongDiem)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => dg.XepLoai)
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => dg.GhiChu)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => dg.HocKi)
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => dg.Nam)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayName("Đã đánh giá")
+                                                                </td>
+                                                            }
+                                                        }
+                                                        <td>
+
+                                                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalXemChiTietDG-@sv.ID">
+                                                                Xem chi tiết
+                                                            </button>
+                                                            @Html.Action("XemChiTiet", "UserGiangVien", new { id = sv.ID })
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        </tbody>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+@{
+    foreach (var item in Model)
+    {
+        <script>
+            var table = new DataTable('#dg-@item.ID', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+        </script>
+    }
+}
+
+
+
+
+
+

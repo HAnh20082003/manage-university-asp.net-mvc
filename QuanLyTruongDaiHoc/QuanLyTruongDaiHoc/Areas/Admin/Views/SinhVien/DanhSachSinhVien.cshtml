@@ -1,0 +1,196 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_SinhVien>
+@using QuanLyTruongDaiHoc.Models
+
+@{
+    ViewBag.Title = "DanhSachSinhVien";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+@Html.Action("NhapDanhSach", "SinhVien")
+@Html.Action("ThemSinhVien", "SinhVien")
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn btn-success me-md-2" data-toggle="modal" data-target="#modalDSSV">
+                                Nhập danh sách
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn btn btn-primary me-md-2" data-toggle="modal" data-target="#modalThemSinhVien">
+                                Thêm Sinh Viên
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="sinhvien" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MaSinhVien)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.Hoten)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.GioiTinh)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_LopHoc.MaLopHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_Nganh.TenNganh)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_HeDaoTao.TenHeDaoTao)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NgayNhapHoc)
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MaSinhVien)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.tb_ThongTinCaNhan.Hoten)
+                                        </td>
+                                        <td>
+
+                                            @Init.getStrGioiTinh(item.tb_ThongTinCaNhan.GioiTinh)
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                if (item.tb_LopHoc != null)
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.tb_LopHoc.MaLopHoc)
+                                                }
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.tb_Nganh.TenNganh)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.tb_HeDaoTao.TenHeDaoTao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgayNhapHoc)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Xem thông tin", "ThongTinSinhVien", new { id = item.ID }, new { @class = "btn btn-sm btn-success" })
+                                            @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                                            @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                            <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaSinhVien-@item.ID">
+                                                Xóa Sinh viên
+                                            </button>
+                                            @Html.Action("XoaSinhVien", "SinhVien", new { id = item.ID })
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#sinhvien', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@{if (Session["LoiXoaSV"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["LoiXoaSV"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["LoiXoaSV"] = null;
+    }
+    else if (Session["XoaSVThanhCong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["XoaSVThanhCong"]',
+
+                });
+             }
+        </script>
+        Session["XoaSVThanhCong"] = null;
+        Session["LoiXoaSV"] = null;
+    }
+
+}
+
+
+

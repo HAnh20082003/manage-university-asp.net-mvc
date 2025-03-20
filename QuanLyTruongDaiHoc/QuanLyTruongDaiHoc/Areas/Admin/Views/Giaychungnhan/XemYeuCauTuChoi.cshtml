@@ -1,0 +1,104 @@
+﻿
+
+@using QuanLyTruongDaiHoc.Models;
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_YeuCauGiayChungNhan>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<div class="modal fade" id="modalXemYeuCauDaTuChoi">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Danh sách yêu cầu cấp giấy chứng nhận đã từ chối</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover" id="xemyeucaudatuchoi">
+                    @{
+
+                        int i = 1;
+                        <thead>
+                            <tr>
+
+                                <th>STT</th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.tb_SinhVien.MaSinhVien)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.tb_GiayChungNhan.Ten)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ThongTinYeuCau)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NgayYeuCau)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TrangThai)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PhanHoi)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+
+                                <td>@i</td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tb_SinhVien.MaSinhVien)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tb_GiayChungNhan.Ten)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThongTinYeuCau)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NgayYeuCau)
+                                </td>
+                                <td>
+                                    @Init.getStrTrangThai(item.TrangThai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhanHoi)
+                                </td>
+                            </tr>
+                                i++;
+                            }
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#xemyeucaudatuchoi', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+
+

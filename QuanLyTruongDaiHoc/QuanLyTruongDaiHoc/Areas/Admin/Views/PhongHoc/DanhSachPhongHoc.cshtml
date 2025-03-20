@@ -1,0 +1,242 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_PhongHoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhSachPhongHoc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@Html.Action("ThemPhong", "PhongHoc")
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-header">
+                    <h4>Danh sách phòng học hiện hành</h4>
+                </div>
+                <div class="card-header">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemPhong">
+                            Thêm Phòng
+                        </button>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        @Html.ActionLink("Quản lý loại phòng", "QuanLyLoaiPhong", "PhongHoc", null, new { @class = "btn btn-primary me-md-2" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="card col-12">
+                @{
+                    var loaiphong = (List<tb_LoaiPhong>)ViewBag.LoaiPhong;
+                    foreach (var item in loaiphong)
+                    {
+                        <div class="card-header">
+                            <h3>Phòng @item.Ten.ToLower()</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @{
+                                    foreach (var phong in Model)
+                                    {
+                                        if (phong.ID_LoaiPhong == item.ID)
+                                        {
+                                            if (phong.TrangThai)
+                                            {
+                                                <div class="col-md-3">
+                                                    <div class="small-box bg-info">
+                                                        <button data-toggle="modal" data-target="#modalXoaPhong-@item.ID" class="btn btn-sm btn-warning">Xóa</button>
+                                                        <div class="inner">
+                                                            <h3>@phong.MaPhongHoc</h3>
+
+                                                            <p>@phong.SucChua</p>
+                                                            <label> @phong.ViTri</label>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="nav-icon fa fa-book"></i>
+                                                        </div>
+                                                        <a href="#" data-toggle="modal" data-target="#modalChiTietPhongHoc-@item.ID" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-md-3">
+                                                    <div class="small-box bg-danger">
+                                                        <button data-toggle="modal" data-target="#modalXoaPhong-@item.ID" class="btn btn-sm btn-warning">Xóa</button>
+                                                        <div class="inner">
+                                                            <h3>@phong.MaPhongHoc</h3>
+
+                                                            <p>@phong.SucChua</p>
+                                                            <label><i>Đang bảo trì</i></label>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="nav-icon fa fa-book"></i>
+                                                        </div>
+                                                        <a href="#" data-toggle="modal" data-target="#modalChiTietPhongHoc-@item.ID" class="small-box-footer">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @Html.Action("ChiTietPhongHoc", "PhongHoc", new { id = item.ID })
+                                            @Html.Action("XoaPhong", "PhongHoc", new { id = item.ID })
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@{
+    if (Session["SuaPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuaPhong"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuaPhong"] = null;
+    }
+    if (Session["ThemPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ThemPhong"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["ThemPhong"] = null;
+    }
+    else if (Session["LoiThemPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["LoiThemPhong"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["LoiThemPhong"] = null;
+    }
+    if (Session["XoaPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["XoaPhong"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["XoaPhong"] = null;
+    }
+    else if (Session["LoiXoaPhong"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["LoiXoaPhong"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["LoiXoaPhong"] = null;
+    }
+
+}
+

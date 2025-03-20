@@ -1,0 +1,97 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_YeuCauGiayChungNhan
+
+<div class="modal fade" id="modalXuLyDon-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @using (Html.BeginForm("XuLyDon", "GiayChungNhan", FormMethod.Post))
+            {
+                @Html.Hidden("id_giaychungnhan", Model.ID)
+                <div class="modal-header">
+                    <h4 class="modal-title">Xử lý yêu cầu giấy chứng nhận</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            Mã sinh viên: @Model.tb_SinhVien.MaSinhVien
+                        </div>
+                        <div class="form-group">
+                            Họ tên: @Model.tb_SinhVien.tb_ThongTinCaNhan.Hoten
+                        </div>
+                        <div class="form-group">
+                            Loại giấy: @Model.tb_GiayChungNhan.Ten
+                        </div>
+                        <div class="form-group">
+                            Thông tin yêu cầu: @Model.ThongTinYeuCau
+                        </div>
+                        <div class="form-group">
+                            Ngày yêu cầu: @Model.NgayYeuCau
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TrangThai, "Trạng thái", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                <select name="TrangThai" class="form-control">
+                                    @{
+                                        if (Model.TrangThai == Init.DaDuyet)
+                                        {
+                                            <option value="@Init.DoiDuyet">@Init.StrDoiDuyet</option>
+                                            <option value="@Init.DaDuyet" selected>@Init.StrDaDuyet</option>
+                                            <option value="@Init.TuChoiDuyet">@Init.StrTuChoiDuyet</option>
+                                        }
+                                        else if (Model.TrangThai == Init.DoiDuyet)
+                                        {
+                                            <option value="@Init.DoiDuyet" selected>@Init.StrDoiDuyet</option>
+                                            <option value="@Init.DaDuyet">@Init.StrDaDuyet</option>
+                                            <option value="@Init.TuChoiDuyet">@Init.StrTuChoiDuyet</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@Init.DoiDuyet">@Init.StrDoiDuyet</option>
+                                            <option value="@Init.DaDuyet">@Init.StrDaDuyet</option>
+                                            <option value="@Init.TuChoiDuyet" selected>@Init.StrTuChoiDuyet</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhanHoi, "Phản hồi", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                <textarea id="Phanhoi" name="Phanhoi" class="form-control">@Model.PhanHoi</textarea>
+                            </div>
+                        </div>
+
+                        @{
+                            if (Model.NgayDuyet != null)
+                            {
+                                <div class="form-group">
+                                    Thông tin yêu cầu: @Model.NgayDuyet
+                                </div>
+                            }
+                        }
+
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+

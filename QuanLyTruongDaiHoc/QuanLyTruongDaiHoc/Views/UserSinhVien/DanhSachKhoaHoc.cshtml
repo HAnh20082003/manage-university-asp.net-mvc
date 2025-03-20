@@ -1,0 +1,179 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_KhoaHoc>
+@using QuanLyTruongDaiHoc.Models;
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<div id="dskh">
+    <table id="dsachKhoaHoc" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tb_Monhoc.TenMonHoc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaKhoaHoc)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tb_Monhoc.SoTC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                </th>
+                <th>
+                    Số lượng
+                </th>
+
+                <th>Lịch học</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var sv = (tb_SinhVien)ViewBag.SV;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @{
+                                if (item.tb_DangKyMonHoc.SingleOrDefault(n => n.ID_KhoaHoc == item.ID && n.ID_SinhVien == sv.ID) != null)
+                                {
+                                    <input type="checkbox" id="khoahoc-@item.ID" onclick="DangKiMon(this)" value="@item.ID" checked />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" id="khoahoc-@item.ID" onclick="DangKiMon(this)" value="@item.ID" />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.TenMonHoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaKhoaHoc)
+
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.SoTC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                        </td>
+                        <td id="soluong-@item.ID">
+                            @item.SoLuongHienTai / @item.SoLuongYeuCau
+                        </td>
+
+                        <td>
+                            @foreach (var childItem in item.tb_ChiTietKhoaHoc)
+                            {
+                                DateTime date = (DateTime)childItem.Ngay;
+                                string strDate;
+                                if ((int)date.DayOfWeek == 0)
+                                {
+                                    strDate = "Chủ nhật";
+                                }
+                                else
+                                {
+                                    strDate = "Thứ " + (int)(date.DayOfWeek + 1);
+                                }
+                                <p>@strDate , Ngày: @date.ToString("dd/MM/yyyy") , Tiết bắt đầu: @childItem.TietBatDau , Tiết kết thúc: @childItem.TietKetThuc , Phòng: @childItem.tb_PhongHoc.MaPhongHoc</p>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#dsachKhoaHoc', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    function DangKiMon(element) {
+
+        var td = document.getElementById(`soluong-${element.value}`);
+        var text = td.innerHTML;
+        var split = text.split("/");
+        var slht = Number.parseInt(split[0]);
+        var sltd = Number.parseInt(split[1]);
+        if (element.checked == true) {
+            const url = new URL('@Url.Action("DangKyMon", "UserSinhVien")', location.origin);
+            url.searchParams.set('id', element.value);
+            $('#dsMonDangKy').load(url.href);
+            if (slht >= sltd) {
+                var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                });
+                toastMixin.fire({
+                    animation: true,
+                    title: 'Khoá học đã đủ sinh viên',
+                    icon: 'error'
+                });
+            }
+            else {
+                slht++;
+                td.innerHTML = `${slht} / ${sltd}`
+            }
+        }
+
+        else {
+             const url = new URL('@Url.Action("HuyDangKyMon", "UserSinhVien")', location.origin);
+            url.searchParams.set('id', element.value);
+            $('#dsMonDangKy').load(url.href);
+            slht--;
+            td.innerHTML = `${slht} / ${sltd}`
+        }
+    }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

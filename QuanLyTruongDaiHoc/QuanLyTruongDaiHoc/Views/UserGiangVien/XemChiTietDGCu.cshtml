@@ -1,0 +1,158 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_DanhGiaRL
+
+<div class="modal fade" id="modalXemChiTietDGCu-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đánh giá điểm rèn luyện</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    @Html.DisplayName("Mã sinh viên: " + Model.tb_SinhVien.MaSinhVien)
+                </div>
+
+                <div class="form-group">
+                    @Html.DisplayName("Họ tên: " + Model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                </div>
+
+                <div class="form-group">
+                    @Html.DisplayName("Lớp học: " + Model.tb_SinhVien.tb_LopHoc.MaLopHoc)
+                </div>
+
+                @{
+                    <div class="form-group">
+                        @Html.DisplayName("Tổng điểm: " + Model.TongDiem)
+                    </div>
+                    <div class="form-group">
+                        @Html.DisplayName("Xếp loại: " + Model.XepLoai)
+                    </div>
+                    <div class="form-group">
+                        @Html.DisplayName("Ghi chú: " + Model.GhiChu)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayName("Ngày đánh giá: " + Model.NgayDanhGia)
+                    </div>
+
+                    <h2 style="text-align: center">Nội dung đánh giá</h2>
+                    if (ViewBag.NoiDungRL != null)
+                    {
+                        List<tb_NoiDungRenLuyen> noiDungRL = (List<tb_NoiDungRenLuyen>)ViewBag.NoiDungRL;
+                        foreach (var ndrl in noiDungRL)
+                        {
+                            <div class="modal-header">
+                                <h4 class="modal-title">@ndrl.MaNoiDung - @ndrl.TenNoiDung</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-bordered table-hover" id="xemchitietdanhgia-@ndrl.ID">
+                                    @{
+                                        int i = 1;
+                                        <thead>
+                                            <tr>
+
+                                                <th>STT</th>
+                                                <th>
+                                                    Mã chi tiết
+                                                </th>
+                                                <th class="col-5">
+                                                    Tên chi tiết
+                                                </th>
+                                                <th>
+                                                    Điểm SV
+                                                </th>
+                                                <th>
+                                                    Điểm GV
+                                                </th>
+                                                <th>
+                                                    Điểm QT
+                                                </th>
+                                                <th>
+                                                    Điểm tối đa
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @{
+                                                List<tb_ChiTietNoiDungRenLuyen> chitietNDRL = ndrl.tb_ChiTietNoiDungRenLuyen.ToList();
+                                                foreach (var ctdgrl in chitietNDRL)
+                                                {
+                                                    var chitiet = ctdgrl.tb_ChiTietDanhGiaRL.SingleOrDefault(n => n.ID_DanhGiaRL == Model.ID && n.ID_ChiTietNoiDung == ctdgrl.ID);
+
+                                                    <tr>
+
+                                                        <td>@i</td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => ctdgrl.MaChiTiet)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => ctdgrl.TenChiTiet)
+                                                        </td>
+                                                        @{
+                                                            if (chitiet != null)
+                                                            {
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => chitiet.DiemSVDanhGia)
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group">
+                                                                        <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemgvdanhgia" name="Diemgvdanhgia" value="@chitiet.DiemGVDanhGia" oninput="checkInput(this, @ctdgrl.DiemToiDa)" />
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => chitiet.DiemSVDanhGia)
+                                                                </td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>
+                                                                    @Html.DisplayName("0")
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.DisplayName("0")
+                                                                </td>
+
+                                                                <td>
+                                                                    @Html.DisplayName("0")
+                                                                </td>
+                                                            }
+                                                        }
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => ctdgrl.DiemToiDa)
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        </tbody>
+
+                                    }
+                                </table>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+
+
+            </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script>
+    function checkInput(input, max) {
+        if (isNaN(input.value) || input.value < 0 || input.value > max) {
+            input.value = 0;
+        }
+    }
+</script>

@@ -1,0 +1,234 @@
+﻿@model QuanLyTruongDaiHoc.Models.tb_KhoaHoc
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "SuaThongTinKhoaHoc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="row">
+
+            <div class="card col-5">
+                @using (Html.BeginForm("SuaThongTinKhoaHoc", "KhoaHoc", FormMethod.Post))
+                {
+                    @Html.HiddenFor(model => model.ID)
+                    <div class="card-header">
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-danger me-md-2" onclick="suathongtin(this.id)" id="Huy" hidden>
+                                Hủy
+                            </button>
+                            <button type="submit" class="btn btn-lg btn-success me-md-2" id="Luu" hidden>
+                                Lưu
+                            </button>
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" onclick="suathongtin(this.id)" id="SuaThongTin">
+                                Sửa thông tin
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12" style="text-align:center;color:green"><h4>@Model.tb_Monhoc.TenMonHoc</h4></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Mã khóa học:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Model.MaKhoaHoc
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Mã môn học:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Model.tb_Monhoc.MaMonHoc
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Chuyên ngành:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Model.tb_Monhoc.tb_Nganh.TenNganh
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Giảng viên giảng dạy:</label>
+                            </div>
+                            <div class="col-lg-8" id="lbGiangVien">
+                                @Model.tb_GiangVien.tb_ThongTinCaNhan.Hoten
+                            </div>
+
+                            <div class="col-lg-8" id="listGiangVien" hidden>
+
+                                @Html.DropDownList("GiangVien", null, htmlAttributes: new { @class = "form-control" })
+
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Số lượng yêu cầu:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Model.SoLuongYeuCau
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Số lượng hiện tại:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Model.SoLuongHienTai
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Trạng thái:</label>
+                            </div>
+                            <div class="col-lg-8">
+                                @Init.getStrTrangThaiKH(Model.TrangThai)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="card col-7">
+                <div class="card-header">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalLichHoc">
+                            Thêm lịch học
+                        </button>
+                        @Html.Action("ThemLichHoc", "KhoaHoc", new { @id = Model.ID })
+                    </div>
+                </div>
+                <div class="card-body">
+                    @Html.Action("LichHoc", "KhoaHoc", new { id = Model.ID })
+                </div>
+            </div>
+
+
+            @*<div class="col-md-7">
+
+                </div>*@
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                            <label style="font-size:20px">Danh sách sinh viên khóa học</label>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="@Url.Action("InDanhSachSinhVien","KhoaHoc",new { id = Model.ID })" class="btn btn-lg btn-success me-md-2">In Danh Sách</a>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @Html.Action("DanhSachSinhVienKhoaHoc", "KhoaHoc", new { @id = Model.ID })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function suathongtin(id) {
+        if (id == 'SuaThongTin') {
+            document.getElementById('lbGiangVien').hidden = true;
+            document.getElementById('listGiangVien').hidden = false;
+
+
+            document.getElementById('SuaThongTin').hidden = true;
+            document.getElementById('Huy').hidden = false;
+            document.getElementById('Luu').hidden = false;
+
+        }
+        else if (id == 'Huy') {
+            document.getElementById('lbGiangVien').hidden = false;
+            document.getElementById('listGiangVien').hidden = true;
+
+            document.getElementById('SuaThongTin').hidden = false;
+            document.getElementById('Huy').hidden = true;
+            document.getElementById('Luu').hidden = true;
+        }
+    }
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@{if (Session["XoaLichHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["XoaLichHoc"]',
+
+                });
+             }
+        </script>
+        Session["LoiXoaGV"] = null;
+    }
+    else if (Session["LoiXoaLichHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["LoiXoaLichHoc"]',
+                icon: 'error'
+                });
+             }
+        </script>
+
+        Session["LoiXoaLichHoc"] = null;
+    }
+
+}
+
+
+

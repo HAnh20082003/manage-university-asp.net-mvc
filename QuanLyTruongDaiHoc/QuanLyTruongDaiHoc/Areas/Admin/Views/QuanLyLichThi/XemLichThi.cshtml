@@ -1,0 +1,224 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_ThongTinNgayThi>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "XemLichThi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var kh = (tb_KhoaHoc)ViewBag.KH;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Lịch thi khoá học @kh.MaKhoaHoc - @kh.tb_Monhoc.TenMonHoc</h4>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemLichKhoaHoc">
+                                Thêm lịch thi
+                            </button>
+                            @Html.Action("ThemLichKhoaHoc", new { id = kh.ID })
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                Mã khoá học: @kh.MaKhoaHoc
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DisplayName("Giảng viên: " + kh.tb_GiangVien.MaGiangVien)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                Lịch học
+                                @foreach (var childItem in kh.tb_ChiTietKhoaHoc)
+                                {
+                                    DateTime date = (DateTime)childItem.Ngay;
+                                    string strDate;
+                                    if ((int)date.DayOfWeek == 0)
+                                    {
+                                        strDate = "Chủ nhật";
+                                    }
+                                    else
+                                    {
+                                        strDate = "Thứ " + (int)(date.DayOfWeek + 1);
+                                    }
+                                    <p>@strDate , Ngày: @date.ToString("dd/MM/yyyy") , Tiết bắt đầu:@childItem.TietBatDau , Tiết kết thúc:@childItem.TietKetThuc , Phòng: @childItem.tb_PhongHoc.MaPhongHoc</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="LichKhoaHoc">
+                            @{
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Ngày thi")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Phòng thi")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Giám thị 1")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Giám thị 2")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Giờ bắt đầu")
+                                        </th>
+                                        @{
+                                            if (kh.TrangThai == Init.HoatDong)
+                                            {
+                                                <th>
+                                                    Chức năng
+                                                </th>
+                                            }
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayThi)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_PhongHoc.MaPhongHoc)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_GiangVien1.tb_ThongTinCaNhan.Hoten)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.GioBatDau)
+                                            </td>
+                                            @{
+                                                if (kh.TrangThai == Init.HoatDong)
+                                                {
+                                                    <td>
+                                                        @Html.ActionLink("Xem chi tiết", "XemPhongThi", "QuanLyLichThi", new { @id = item.ID }, new { @class = "btn btn-sm btn-success" })
+                                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaLichThi-@item.ID">
+                                                            Xoá lịch
+                                                        </button>
+                                                        @Html.Action("XoaLichThi", "QuanLyLichThi", new { @id = item.ID })
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    function XoaLichThi(index) {
+        var tr = document.getElementById(`tr-${index}`);
+        tr.remove();
+    }
+
+    var table = new DataTable('#khoahoc', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+
+@{
+    if (Session["SuccessXoaLichThi"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessXoaLichThi"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessXoaLichThi"] = null;
+    }
+    if (Session["ErrorXoaLichThi"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorXoaLichThi"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorXoaLichThi"] = null;
+    }
+}

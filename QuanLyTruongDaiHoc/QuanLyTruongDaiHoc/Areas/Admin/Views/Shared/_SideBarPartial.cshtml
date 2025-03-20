@@ -1,0 +1,297 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="@Url.Action("TrangChu", "Admin")" class="brand-link">
+        <img src="~/Content/AdminLTE-3.2.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">QUẢN LÝ ĐẠI HỌC</span>
+    </a>
+    @{
+        tb_TaiKhoan tk = null;
+        if (Session["TaikhoanQT"] != null)
+        {
+            tk = (tb_TaiKhoan)Session["TaiKhoanQT"];
+        }
+    }
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            @{
+                if (Session["TaikhoanQT"] == null)
+                {
+                    <div class="image">
+                        <img src="~/Assets/Imgs/Unknow User.jpg" class="img-circle elevation-2" alt="Ảnh đại diện người dùng ẩn danh">
+                    </div>
+                    <div class="info">
+                        <a href="@Url.Action("DangNhap", "Admin")" class="d-block">Người dùng ẩn danh</a>
+                    </div>
+
+                }
+                else
+                {
+                    //tb_TaiKhoan tk = (tb_TaiKhoan)Session["TaiKhoanQT"];
+                    if (tk.Anh == null)
+                    {
+                        <div class="image">
+                            <img src="~/Assets/Imgs/No Avatar.png" class="img-circle elevation-2" alt="Ảnh đại diện người dùng ẩn danh">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="image">
+                            <img src="~/Assets/Imgs/Avatars User/Admin/@tk.Anh" class="img-circle elevation-2" alt="Ảnh đại diện người dùng ẩn danh">
+                        </div>
+                    }
+                    <div class="info">
+                        <a href="#" class="d-block">@tk.tb_QuanTri.SingleOrDefault().tb_ThongTinCaNhan.Hoten</a>
+                    </div>
+                }
+            }
+        </div>
+
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <!--Tài khoản cá nhân-->
+
+                <li class="nav-header"><strong>TÀI KHOẢN</strong></li>
+                @{
+                    if (Session["TaikhoanQT"] != null)
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("DoiMatKhau","Admin", new { id = tk.ID })" class="@(ViewContext.RouteData.Values["action"].ToString()=="DoiMatKhau"?"nav-link active":"nav-link")">
+                                <i class="nav-icon fa fa-retweet"></i>
+                                <p>
+                                    Đổi mật khẩu
+                                    @*<span class="badge badge-info right">2</span>*@
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("DangXuat","Admin")" class="nav-link">
+                                <i class="nav-icon fa fa-retweet"></i>
+                                <p>
+                                    Đăng xuất
+                                    @*<span class="badge badge-info right">2</span>*@
+                                </p>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("DangNhap","Admin")" class="@(ViewContext.RouteData.Values["action"].ToString()=="DangNhap"?"nav-link active":"nav-link")">
+                                <i class="nav-icon fa fa-retweet"></i>
+                                <p>
+                                    Đăng nhập
+                                    @*<span class="badge badge-info right">2</span>*@
+                                </p>
+                            </a>
+                        </li>
+                    }
+                }
+
+                <!--Quản lý trường Đại học-->
+
+                <li class="nav-header"><strong>HỆ THỐNG</strong></li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachNganhHoc","Nganh")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="Nganh"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-shapes"></i>
+                        <p>
+                            Ngành học
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <!--<li class="nav-item">
+    <a href="@Url.Action("XemHeDaoTao","HeDaoTao")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="HeDaoTao"?"nav-link active":"nav-link")">
+        <i class="nav-icon fa fa-shapes"></i>
+        <p>
+            Hệ đào tạo-->
+                @*<span class="badge badge-info right">2</span>*@
+                <!--</p>
+        </a>
+    </li>-->
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachChuongTrinhDaoTao","Chuongtrinhdaotao")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="Chuongtrinhdaotao"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-school"></i>
+                        <p>
+                            Chương trình đào tạo
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachMonHoc","Monhoc")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="Monhoc"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-book"></i>
+                        <p>
+                            Quản lý môn học
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachGiangVien","GiangVien")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="GiangVien"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-user-graduate"></i>
+                        <p>
+                            Quản lý giảng viên
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachSinhVien","SinhVien")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="SinhVien"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-user-graduate"></i>
+                        <p>
+                            Quản lý sinh viên
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachTaiKhoan","QuanLyTaiKhoan")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="QuanLyTaiKhoan"?"nav-link active":"nav-link")">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Quản lý tài khoản
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachLopHoc","LopHoc")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="LopHoc"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-chalkboard-teacher"></i>
+                        <p>
+                            Quản lý lớp học
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachPhongHoc","PhongHoc")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="PhongHoc"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-folder"></i>
+                        <p>
+                            Quản lý phòng học
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachKhoaHoc","KhoaHoc")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="KhoaHoc"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-book-open"></i>
+                        <p>
+                            Quản lý khóa học
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("ThongBao","ThongBao")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="ThongBao"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-envelope"></i>
+                        <p>
+                            Quản lý thông báo
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-header"><strong>CHỨC NĂNG</strong></li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("XemDanhSachRenLuyen","DiemRenLuyen")" class="@(ViewContext.RouteData.Values["action"].ToString()=="XemDanhSachRenLuyen"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Đánh giá rèn luyện
+                            @*<span class="badge badge-info right">6</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("XemDanhSachNoiDungRenLuyen","DiemRenLuyen")" class="@(ViewContext.RouteData.Values["action"].ToString()=="XemDanhSachNoiDungRenLuyen"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fas fa-copy"></i>
+                        <p>
+                            Nội dung rèn luyện
+                            @*<span class="badge badge-info right">6</span>*@
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="@Url.Action("XemDanhSachYeuCau","GiayChungNhan")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="GiayChungNhan"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-stamp"></i>
+                        <p>
+                            Cấp giấy chứng nhận
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("XemDanhSachNghiPhep","XinNghiPhep")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="XinNghiPhep"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-stamp"></i>
+                        <p>
+                            Xử lý đơn
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachSinhVien","CapHocBong")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="CapHocBong"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-award"></i>
+                        <p>
+                            Cấp học bổng
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachTotNghiep","QuanLyTotNghiep")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="QuanLyTotNghiep"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-graduation-cap"></i>
+                        <p>
+                            Danh sách tốt nghiệp
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DanhSachKhoaHocLichThi","QuanLyLichThi")" class="@(ViewContext.RouteData.Values["controller"].ToString()=="QuanLyLichThi"?"nav-link active":"nav-link")">
+                        <i class="nav-icon fa fa-graduation-cap"></i>
+                        <p>
+                            Lịch thi
+                            @*<span class="badge badge-info right">2</span>*@
+                        </p>
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>
+

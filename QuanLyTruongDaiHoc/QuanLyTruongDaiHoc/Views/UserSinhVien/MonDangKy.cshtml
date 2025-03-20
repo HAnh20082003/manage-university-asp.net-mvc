@@ -1,0 +1,88 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+
+
+
+<div class="card" id="dsMonDangKy">
+    <div class="card-header">Môn học đã đăng ký</div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Xóa</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_Monhoc.TenMonHoc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_KhoaHoc.MaKhoaHoc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_Monhoc.SoTC)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_KhoaHoc.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                    </th>
+                    <th>
+                        Thời khóa biểu
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="#" style="color:red" onclick="HuyDangKyMon('@item.tb_KhoaHoc.ID')">&#x2716;</a></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.TenMonHoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_KhoaHoc.MaKhoaHoc)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_Monhoc.SoTC)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_KhoaHoc.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                        </td>
+
+                        <td>
+                            @foreach (var childItem in item.tb_KhoaHoc.tb_ChiTietKhoaHoc)
+                            {
+                                DateTime date = (DateTime)childItem.Ngay;
+                                string strDate;
+                                if ((int)date.DayOfWeek == 0)
+                                {
+                                    strDate = "Chủ nhật";
+                                }
+                                else
+                                {
+                                    strDate = "Thứ " + (int)(date.DayOfWeek + 1);
+                                }
+                                <p>@strDate , Ngày: @date.ToString("dd/MM/yyyy") , Tiết bắt đầu:@childItem.TietBatDau , Tiết kết thúc:@childItem.TietKetThuc , Phòng: @childItem.tb_PhongHoc.MaPhongHoc</p>
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function HuyDangKyMon(value) {
+        const url = new URL('@Url.Action("HuyDangKyMon", "UserSinhVien")', location.origin);
+        url.searchParams.set('id',value);
+        $('#dsMonDangKy').load(url.href);
+    }
+</script>
+

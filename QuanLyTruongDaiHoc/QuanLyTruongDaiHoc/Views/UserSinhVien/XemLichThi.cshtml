@@ -1,0 +1,197 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+@using QuanLyTruongDaiHoc.Models
+
+@{
+    ViewBag.Title = "XemLichThi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    tb_SinhVien sv = (tb_SinhVien)ViewBag.SV;
+    (int, int) hkht = ((int, int))ViewBag.HocKiHT;
+    var dkmh = (List<tb_DangKyMonHoc>)ViewBag.DKMH;
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card-header">
+                    <h4>Danh sách lịch thi các khoá học hiện tại</h4>
+                </div>
+                <div class="card-header">
+                    <label> Năm @hkht.Item2 - Học kì @hkht.Item1</label>
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table table-bordered table-hover" id="lichthihientai">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayName("Mã khoá học")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Giảng viên")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Ngày thi")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Phòng thi")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Giờ bắt đầu")
+                                </th>
+                                <th>
+                                    @Html.DisplayName("Thời lượng")
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemchild in dkmh)
+                            {
+                                tb_KhoaHoc kh = itemchild.tb_KhoaHoc;
+                                tb_ThongTinNgayThi tt = kh.tb_ThongTinNgayThi.SingleOrDefault(n => n.tb_ChiTietLichThi.FirstOrDefault(n => n.ID_SinhVien == sv.ID) != null);
+                                if (tt != null)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => kh.MaKhoaHoc)</td>
+                                        <td>@Html.DisplayFor(modelItem => kh.tb_GiangVien.tb_ThongTinCaNhan.Hoten)</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => tt.NgayThi)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => tt.tb_PhongHoc.MaPhongHoc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => tt.GioBatDau)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => tt.ThoiLuong)
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="card-header">
+                    <h4>Danh sách lịch thi các khoá học cũ hơn</h4>
+                </div>
+                @{
+                    foreach (var item in ViewBag.HocKi)
+                    {
+                        <div class="card-header">
+                            <label> Năm @item.Nam - Học kì @item.Hocki</label>
+                        </div>
+                        <div class="card-body">
+
+                            <table class="table table-bordered table-hover" id="danhsachlichthi-@item.Nam-@item.Hocki">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayName("Mã khoá học")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Giảng viên")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Ngày thi")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Phòng thi")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Giờ bắt đầu")
+                                        </th>
+                                        <th>
+                                            @Html.DisplayName("Thời lượng")
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var itemchild in Model)
+                                    {
+                                        if (itemchild.Nam == item.Nam && itemchild.HocKi == item.Hocki)
+                                        {
+                                            tb_KhoaHoc kh = itemchild.tb_KhoaHoc;
+                                            tb_ThongTinNgayThi tt = kh.tb_ThongTinNgayThi.SingleOrDefault(n => n.tb_ChiTietLichThi.FirstOrDefault(n => n.ID_SinhVien == sv.ID) != null);
+                                            if (tt != null)
+                                            {
+                                                <tr>
+                                                    <td>@Html.DisplayFor(modelItem => kh.MaKhoaHoc)</td>
+                                                    <td>@Html.DisplayFor(modelItem => kh.tb_GiangVien.tb_ThongTinCaNhan.Hoten)</td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => tt.NgayThi)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => tt.tb_PhongHoc.MaPhongHoc)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => tt.GioBatDau)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => tt.ThoiLuong)
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+@{
+    foreach (var item in ViewBag.HocKi)
+    {
+
+    <script>
+
+            var table = new DataTable(`#danhsachlichthi-@item.Nam-@item.Hocki`, {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+    </script>
+    }
+}
+
+<script>
+    var table2 = new DataTable('#lichthihientai', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+

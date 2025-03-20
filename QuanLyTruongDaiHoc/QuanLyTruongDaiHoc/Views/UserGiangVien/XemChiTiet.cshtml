@@ -1,0 +1,319 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_SinhVien
+
+@{
+    List<tb_NoiDungRenLuyen> noiDungRL = (List<tb_NoiDungRenLuyen>)ViewBag.NoiDungRL;
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<div class="modal fade" id="modalXemChiTietDG-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đánh giá điểm rèn luyện</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("ThayDoiDanhGia", "UserGiangVien", FormMethod.Post))
+            {
+                int i = 1;
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <input hidden name="hidden" value="@Model.ID" />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.DisplayName("Mã sinh viên: " + Model.MaSinhVien)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayName("Họ tên: " + Model.tb_ThongTinCaNhan.Hoten)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayName("Lớp học: " + Model.tb_LopHoc.MaLopHoc)
+                        </div>
+
+                        @{
+                            if (ViewBag.DGHT != null)
+                            {
+                                var dght = (tb_DanhGiaRL)ViewBag.DGHT;
+                                                <div class="form-group">
+                                                    Tổng điểm: @dght.TongDiem
+                                                </div>
+                                                <div class="form-group">
+                                                    Xếp loại: @dght.XepLoai
+                                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayName("Ghi chú")
+                                    <textarea class="form-control" type="text" name="Ghichu" id="ghichu">@dght.GhiChu</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.DisplayName("Học kì: " + dght.HocKi)
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.DisplayName("Năm: " + dght.Nam)
+                                </div>
+
+                                <h2 style="text-align: center">Nội dung đánh giá</h2>
+                                if (ViewBag.NoiDungRL != null)
+                                {
+                                    foreach (var ndrl in noiDungRL)
+                                    {
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">@ndrl.MaNoiDung - @ndrl.TenNoiDung</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-bordered table-hover" @*id="xemchitietdanhgia-@ndrl.ID"*@>
+                                                @{
+                                                    i = 1;
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>STT</th>
+                                                            <th>
+                                                                Mã chi tiết
+                                                            </th>
+                                                            <th class="col-5">
+                                                                Tên chi tiết
+                                                            </th>
+                                                            <th>
+                                                                Điểm SV
+                                                            </th>
+                                                            <th>
+                                                                Điểm GV
+                                                            </th>
+                                                            <th>
+                                                                Điểm QT
+                                                            </th>
+                                                            <th>
+                                                                Điểm tối đa
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        @{
+                                                            List<tb_ChiTietNoiDungRenLuyen> chitietNDRL = ndrl.tb_ChiTietNoiDungRenLuyen.ToList();
+                                                            foreach (var ctdgrl in chitietNDRL)
+                                                            {
+                                                                var chitiet = ctdgrl.tb_ChiTietDanhGiaRL.SingleOrDefault(n => n.ID_DanhGiaRL == dght.ID && n.ID_ChiTietNoiDung == ctdgrl.ID && n.tb_DanhGiaRL.ID_SinhVien == Model.ID);
+
+                                                                <tr>
+
+                                                                    <td>@i</td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => ctdgrl.MaChiTiet)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => ctdgrl.TenChiTiet)
+                                                                    </td>
+                                                                    @{
+                                                                        if (chitiet != null)
+                                                                        {
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => chitiet.DiemSVDanhGia)
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="form-group">
+                                                                                    <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemgvdanhgia-@chitiet.ID" name="Diemgvdanhgia-@chitiet.ID" value="@chitiet.DiemGVDanhGia" oninput="checkInput(this, @ctdgrl.DiemToiDa)" />
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => chitiet.DiemSVDanhGia)
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>
+                                                                                @Html.DisplayName("0")
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @Html.DisplayName("0")
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @Html.DisplayName("0")
+                                                                            </td>
+                                                                        }
+                                                                    }
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => ctdgrl.DiemToiDa)
+                                                                    </td>
+                                                                </tr>
+                                                                i++;
+                                                            }
+                                                        }
+                                                    </tbody>
+
+                                                }
+                                            </table>
+                                        </div>
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+
+                                var dght = (tb_DanhGiaRL)ViewBag.DGHT;
+                                <h2>Sinh viên chưa tham gia đánh giá</h2>
+                            }
+                        }
+                    </div>
+
+
+                </div>
+
+                <div class="modal-body">
+                    <table class="table table-bordered table-hover" id="dsdg-@Model.ID">
+                        @{
+                            i = 1;
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>
+                                        @Html.DisplayName("Mã sinh viên")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Họ tên")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Tổng điểm")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Xếp loại")
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayName("Ghi chú")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Học kì")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Năm")
+                                    </th>
+                                    <th>
+                                        @Html.DisplayName("Trạng thái")
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    List<tb_DanhGiaRL> dsdg = (List<tb_DanhGiaRL>)ViewBag.DSDG;
+                                    foreach (var dg in dsdg)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            @{
+                                                if (dg == null)
+                                                {
+                                                    <td>
+                                                        @Html.DisplayName("0")
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        @Html.DisplayName("Chưa đánh giá")
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => dg.TongDiem)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => dg.XepLoai)
+                                                    </td>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => dg.GhiChu)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => dg.HocKi)
+                                                    </td>
+
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => dg.Nam)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayName("Đã đánh giá")
+                                                    </td>
+                                                }
+                                            }
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalXemChiTietDGCu-@dg.ID">
+                                                    Xem chi tiết
+                                                </button>
+                                                @Html.Action("XemChiTiet", "UserGiangVien", new { id = dg.ID })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        }
+                    </table>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script>
+    function checkInput(input, max) {
+        if (isNaN(input.value) || input.value < 0 || input.value > max) {
+            input.value = 0;
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+@*@{
+    foreach (var item in noiDungRL)
+    {
+
+        <script>
+            var table = new DataTable(`#xemchitietdanhgia-@item.ID`, {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+        </script>
+    }
+}*@
+<script>
+
+    var table1 = new DataTable('#dsdg-@Model.ID', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>

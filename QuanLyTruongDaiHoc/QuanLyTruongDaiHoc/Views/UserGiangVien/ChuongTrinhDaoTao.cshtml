@@ -1,0 +1,132 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Chuongtrinhdaotao>
+@using QuanLyTruongDaiHoc.Models
+
+@{
+    ViewBag.Title = "ChuongTrinhDaoTao";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+@{
+    var nganh = (tb_Nganh)ViewBag.Nganh;
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card-header">
+                    <h4>Chương trình đào tạo ngành @nganh.TenNganh</h4>
+                </div>
+
+                @{
+                    <input name="Manganh" hidden value="@nganh.ID" />
+                    foreach (var item in ViewBag.HocKi)
+                    {
+                        <div class="card-header">
+                            <label> Năm @item.Nam - Học kì @item.Hocki</label>
+                        </div>
+                        <div class="card-body">
+
+
+
+                            <table class="table table-bordered table-hover" id="chuongtrinhdaotao">
+                                <thead>
+                                    <tr>
+                                        <th>Mã môn học</th>
+                                        <th class="col-6">Tên môn học</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.BatBuoc)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_Monhoc.SoTC)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_Monhoc.SoTiet)
+                                        </th>
+                                        @*<th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                                            </th>*@
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_Nganh.MaNganh)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var itemchild in Model)
+                                    {
+                                        if (itemchild.Nam == item.Nam && itemchild.Hocki == item.Hocki)
+                                        {
+                                            <tr id="trctdt-@itemchild.ID">
+                                                <td>@Html.DisplayFor(modelItem => itemchild.tb_Monhoc.MaMonHoc)</td>
+                                                <td>@Html.DisplayFor(modelItem => itemchild.tb_Monhoc.TenMonHoc)</td>
+                                                <td>
+                                                    @*@Html.DisplayFor(modelItem => item.BatBuoc)*@
+                                                    @{
+                                                        if (itemchild.BatBuoc == true)
+                                                        {
+                                                            <input type="checkbox" disabled checked />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="checkbox" disabled />
+                                                        }
+                                                    }
+
+                                                    @*@(item.BatBuoc==true?"Bắt buộc":"Không")*@
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemchild.tb_Monhoc.SoTC)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemchild.tb_Monhoc.SoTiet)
+                                                </td>
+                                                @*<td>
+                                                        @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                                                    </td>*@
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => itemchild.tb_Nganh.MaNganh)
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+
+
+        var table = new DataTable('#chuongtrinhdaotao', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+            },
+        });
+
+    </script>

@@ -1,0 +1,79 @@
+﻿@model QuanLyTruongDaiHoc.Models.tb_LopHoc
+
+
+
+
+<div class="modal fade" id="modalSuaThongTinLop-@Model.ID">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin lớp học</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("SuaThongTinLop", "LopHoc", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MaLopHoc, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                <input type="text" value="@Model.MaLopHoc" class="form-control" disabled />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ID_CoVan, "Giảng viên cố vấn", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                @Html.DropDownList("GiangVien", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_CoVan, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ID_HeDaoTao, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                <input type="text" value="@Model.tb_HeDaoTao.TenHeDaoTao" disabled class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ID_HeDaoTao, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ID_Nganh, "Ngành", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-12">
+                                <input type="text" value="@Model.tb_Nganh.TenNganh" disabled class="form-control" />
+                                @Html.ValidationMessageFor(model => model.ID_Nganh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

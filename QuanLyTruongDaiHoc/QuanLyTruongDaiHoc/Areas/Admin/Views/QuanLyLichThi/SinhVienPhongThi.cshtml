@@ -1,0 +1,77 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_ChiTietLichThi>
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+<div class="card" id="dssvpt">
+    <div class="card-header">Sinh viên thuộc phòng thi</div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="svpt">
+            <thead>
+                <tr>
+                    <th>Xóa</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_SinhVien.MaSinhVien)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tb_SinhVien.tb_Nganh.TenNganh)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var sv = item.tb_SinhVien;
+                    var kh = item.tb_ThongTinNgayThi.tb_KhoaHoc;
+                    var dk = sv.tb_DangKyMonHoc.SingleOrDefault(n => n.ID_KhoaHoc == kh.ID);
+                    <tr id="tr-@dk.ID">
+                        <td><a href="#" style="color:red" onclick="LoaiSVPhongThi('@dk.ID')">&#x2716;</a></td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_SinhVien.MaSinhVien)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_Nganh.TenNganh)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    function LoaiSVPhongThi(value) {
+        var tr = document.getElementById(`tr-${value}`);
+        tr.remove();
+        const url = new URL('@Url.Action("LoaiBoSvPhongThi", "QuanLyLichThi")', location.origin);
+        url.searchParams.set('id',value);
+        $('#dssvdk').load(url.href);
+    }
+</script>
+
+
+<script>
+
+
+    var table = new DataTable('#svpt', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>

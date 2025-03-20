@@ -1,0 +1,172 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_DanhGiaRL
+
+<div class="modal fade" id="modalXemChiTietDGDRL-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Chi tiết đánh giá điểm rèn luyện</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("SuaDGDRL", "DiemRenLuyen", FormMethod.Post))
+            {
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Hidden("id_dgdrl", Model.ID)
+
+                        <div class="form-group">
+                            @Html.DisplayName("Mã sinh viên: " + Model.tb_SinhVien.MaSinhVien)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayName("Họ tên: " + Model.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DisplayName("Tổng điểm: " + Model.TongDiem)
+                        </div>
+                        <div class="form-group">
+                            @Html.DisplayName("Xếp loại: " + Model.XepLoai)
+                        </div>
+                        <div class="form-group">
+                            @Html.DisplayName("Ghi chú: " + Model.GhiChu)
+                        </div>
+                        <div class="form-group">
+                            @Html.DisplayName("Học kì: " + Model.HocKi)
+                        </div>
+                        <div class="form-group">
+                            @Html.DisplayName("Năm: " + Model.Nam)
+                        </div>
+                    </div>
+
+                </div>
+                List<tb_NoiDungRenLuyen> noiDungRL = (List<tb_NoiDungRenLuyen>)ViewBag.NoiDungRL;
+                foreach (var ndrl in noiDungRL)
+                {
+                    <div class="modal-header">
+                        <h4 class="modal-title">@ndrl.MaNoiDung - @ndrl.TenNoiDung</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-hover" id="xemchitietdanhgia-@ndrl.ID">
+                            @{
+                                int i = 1;
+                                <thead>
+                                    <tr>
+
+                                        <th>STT</th>
+                                        <th>
+                                            Mã chi tiết
+                                        </th>
+                                        <th class="col-5">
+                                            Tên chi tiết
+                                        </th>
+                                        <th>
+                                            Điểm SV
+                                        </th>
+                                        <th>
+                                            Điểm GV
+                                        </th>
+                                        <th>
+                                            Điểm QT
+                                        </th>
+
+                                        <th>
+                                            Điểm tối đa
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @{
+                                        List<tb_ChiTietNoiDungRenLuyen> chitietNDRL = ndrl.tb_ChiTietNoiDungRenLuyen.ToList();
+                                        foreach (var ctdgrl in chitietNDRL)
+                                        {
+                                            var chitiet = ctdgrl.tb_ChiTietDanhGiaRL.SingleOrDefault(n => n.ID_DanhGiaRL == Model.ID && n.ID_ChiTietNoiDung == ctdgrl.ID);
+
+                                                                        <tr>
+
+                                                                            <td>@i</td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => ctdgrl.MaChiTiet)
+                                                                            </td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => ctdgrl.TenChiTiet)
+                                                                            </td>
+                                                                            <td>@chitiet.DiemSVDanhGia</td>
+                                                                            <td>@chitiet.DiemGVDanhGia</td>
+                                                                            @{
+                                                                                if (chitiet != null)
+                                                                                {
+                                                                                    @*<td>
+                    <div class="form-group">
+                        <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemsvdanhgia-@chitiet.ID" name="Diemsvdanhgia-@chitiet.ID" value="@chitiet.DiemSVDanhGia" />
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemgvdanhgia-@chitiet.ID" name="Diemgvdanhgia-@chitiet.ID" value="@chitiet.DiemGVDanhGia" />
+                    </div>
+                </td>*@
+                                                                                    <td>
+                                                                                        <div class="form-group">
+                                                                                            <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemqtdanhgia-@chitiet.ID" name="Diemqtdanhgia-@chitiet.ID" value="@chitiet.DiemQTDanhGia" />
+                                                                                        </div>
+                                                                                    </td>
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    @*<td>
+                                                                                        <div class="form-group">
+                                                                                            <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemsvdanhgia" name="Diemsvdanhgia" value="0" />
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="form-group">
+                                                                                            <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemsvdanhgia" name="Diemsvdanhgia" value="0" />
+                                                                                        </div>
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <div class="form-group">
+                                                                                            <input class="form-control" type="number" max="@ctdgrl.DiemToiDa" min="0" id="diemsvdanhgia" name="Diemsvdanhgia" value="0" />
+                                                                                        </div>
+                                                                                    </td>*@
+                                                                                    <td>0</td>
+                                                                                }
+                                                                            }
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => ctdgrl.DiemToiDa)
+                                                                            </td>
+                                                                        </tr>
+                                            i++;
+                                        }
+                                    }
+                                </tbody>
+
+                            }
+                        </table>
+                    </div>
+                }
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            }
+
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

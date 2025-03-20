@@ -1,0 +1,99 @@
+﻿@using QuanLyTruongDaiHoc.Models
+<div class="card" id="tkb">
+    @{
+        Tuan tuan = (Tuan)ViewBag.Tuan;
+    }
+    <div class="card-header">
+        <div style="text-align:center;font-size:30px">@tuan.day[0].ToString("dd/MM/yyyy") - @tuan.day[Tuan.countDay - 1].ToString("dd/MM/yyyy")</div>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="col-1" onclick="Lui()" style="text-align:center;background-color:blue;cursor:pointer;color:white; user-select:none"> Trước@*<button onclick="Lui()" class="btn btn-primary">Trước</button>*@</th>
+                    <th class="col-1" style="text-align: center">Thứ 2</th>
+                    <th class="col-1" style="text-align: center">Thứ 3</th>
+                    <th class="col-1" style="text-align: center">Thứ 4</th>
+                    <th class="col-1" style="text-align: center">Thứ 5</th>
+                    <th class="col-1" style="text-align: center">Thứ 6</th>
+                    <th class="col-1" style="text-align: center">Thứ 7</th>
+                    <th class="col-1" style="text-align: center">Chủ Nhật</th>
+                    <th class="col-1" onclick="Tien()" style="text-align:center;background-color:blue;cursor:pointer;color:white; user-select: none"> Sau@*<button onclick="Tien()" class="btn btn-primary">Sau</button>*@</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    for (int i = 0; i < Tuan.soTiet; i++)
+                    {
+
+                        <tr>
+                            <td style="text-align: center">Tiết @(i + 1)</td>
+                            @{
+                                for (int j = 0; j < Tuan.countDay; j++)
+                                {
+                                    bool found = false;
+                                    for (int k = 0; k < tuan.khoahoc.Count; k++)
+                                    {
+                                        var ctkh = tuan.khoahoc[k].tb_ChiTietKhoaHoc;
+                                        foreach (var item in ctkh)
+                                        {
+                                            if (item.Ngay.Equals(tuan.day[j]))
+                                            {
+                                                if (i >= item.TietBatDau - 1 && i <= item.TietKetThuc - 1)
+                                                {
+                                                    found = true;
+                                                }
+                                                if (item.TietBatDau == i + 1)
+                                                {
+                                                    <td style="background-color:royalblue; color:white" rowspan="@item.soTiet">
+                                                        <p>Mã khoá học: @tuan.khoahoc[k].MaKhoaHoc</p>
+                                                        <p>Môn học: @tuan.khoahoc[k].tb_Monhoc.TenMonHoc</p>
+                                                        <p>Phòng: @item.tb_PhongHoc.MaPhongHoc (@item.tb_PhongHoc.tb_LoaiPhong.Ten)</p>
+                                                        <p>GV: @tuan.khoahoc[k].tb_GiangVien.MaGiangVien - @tuan.khoahoc[k].tb_GiangVien.tb_ThongTinCaNhan.Hoten</p>
+                                                    </td>
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (found)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    if (!found)
+                                    {
+                                        <td>
+                                        </td>
+                                    }
+                                }
+                            }
+                            <td style="text-align: center">Tiết @(i + 1)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+
+
+    </div>
+</div>
+
+
+
+
+@*<a href="@Url.Action("TESTXemTKB", "Admin", new { @ngay = tuan.prevDate(tuan.day[0]) })">Lùi</a>
+    <a href="@Url.Action("TESTXemTKB", "Admin", new { @ngay = tuan.nextDate(tuan.day[Tuan.countDay - 1]) })">Tới</a>*@
+
+
+<script>
+    function Lui() {
+        $('#tkb').load('@Url.Action("LichDay", "UserGiangVien", new { @ngay = tuan.prevDate(tuan.day[0]) })')
+    };
+    function Tien() {
+        $('#tkb').load('@Url.Action("LichDay", "UserGiangVien", new { @ngay = tuan.nextDate(tuan.day[Tuan.countDay - 1]) })')
+    };
+</script>
+
+

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+
+@using QuanLyTruongDaiHoc.Models;
+
+@{
+    ViewBag.Title = "XemPhongThi";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lt = (tb_ThongTinNgayThi)ViewBag.LT;
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalChinhSuaLichThi">
+                                Chỉnh sửa lịch thi
+                            </button>
+                            @Html.Action("ChinhSuaLichThi", "QuanLyLichThi", new { id = lt.ID })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Action("DanhSachSinhVienDangKy", "QuanLyLichThi", new { id = lt.ID })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                @Html.Action("SinhVienPhongThi", "QuanLyLichThi", new { id = lt.ID })
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+
+@{
+    if (Session["SuccessChinhSuaLichThi"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessChinhSuaLichThi"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessChinhSuaLichThi"] = null;
+    }
+}

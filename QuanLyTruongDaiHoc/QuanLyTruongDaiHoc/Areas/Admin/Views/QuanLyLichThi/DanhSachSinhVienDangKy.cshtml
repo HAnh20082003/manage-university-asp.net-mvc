@@ -1,0 +1,121 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DangKyMonHoc>
+@using QuanLyTruongDaiHoc.Models;
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<div class="card" id="dssvdk">
+    <div class="card-header">Sinh viên đăng ký khoá học</div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover" id="dsdk1">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Mã sinh viên
+                    </th>
+                    <th>
+                        Họ tên sinh viên
+                    </th>
+                    <th>
+                        Ngành học
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    var ctlt = (List<tb_ChiTietLichThi>)ViewBag.CTLT;
+                    foreach (var item in Model)
+                    {
+                                <tr>
+                                    @{
+                                        if (ctlt != null)
+                                        {
+                                            var ct = ctlt.SingleOrDefault(n => n.ID_SinhVien == item.ID_SinhVien);
+                                            if (ct != null)
+                                            {
+                                                <td><input type="checkbox" name="Check-@item.ID_SinhVien" checked onclick="CheckDs(this)" value="@item.ID" /></td>
+                                            }
+                                            else
+                                            {
+                                                <td><input type="checkbox" name="Check-@item.ID_SinhVien" onclick="CheckDs(this)" value="@item.ID" /></td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <input type="checkbox" class="checkinput" name="Check-@item.ID_SinhVien" onclick="CheckDs(this)" value="@item.ID"/>
+                                                ll
+                                    </td>
+                                        
+                                            }
+
+                                    }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_SinhVien.MaSinhVien)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_ThongTinCaNhan.Hoten)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_SinhVien.tb_Nganh.MaNganh)
+                                    </td>
+                                </tr>
+                    }
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+</script>
+
+<script>
+
+
+    var table1 = new DataTable('#dsdk1', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+    function CheckDs(element) {
+        if (element.checked == true) {
+            const url = new URL('@Url.Action("ThemSVPhongThi", "QuanLyLichThi")', location.origin);
+            url.searchParams.set('id', element.value);
+            url.searchParams.set('idlt', @ViewBag.ID_PT);
+            $('#dssvpt').load(url.href);
+        }
+
+        else {
+            const url = new URL('@Url.Action("LoaiBoSvPhongThi2", "QuanLyLichThi")', location.origin);
+            url.searchParams.set('id', element.value);
+            $('#dssvpt').load(url.href);
+        }
+    }
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

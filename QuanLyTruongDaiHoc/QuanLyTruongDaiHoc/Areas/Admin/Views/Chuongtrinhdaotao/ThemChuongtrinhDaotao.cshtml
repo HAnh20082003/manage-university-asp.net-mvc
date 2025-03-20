@@ -1,0 +1,176 @@
+﻿@model QuanLyTruongDaiHoc.Models.tb_Chuongtrinhdaotao
+@using QuanLyTruongDaiHoc.Models;
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<div class="modal fade" id="modalThemCTDT">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @using (Html.BeginForm("ThemChuongtrinhDaotao", "Chuongtrinhdaotao"))
+                {
+                    tb_Nganh nganh = (tb_Nganh)ViewBag.Nganh;
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Chương trình đào tạo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    @Html.Hidden("Manganh", nganh.ID)
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            @Html.DisplayName("Mã ngành: " + nganh.TenNganh)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MaMonHoc, "Môn Học", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @{
+                                if (ViewBag.MonHoc != null)
+                                {
+                                    var dsmh = (List<tb_Monhoc>)ViewBag.MonHoc;
+                                    <table class="table table-bordered table-hover col-md-12" id="monhoc">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" name="Monhoc-All" onclick="toggle(this)" /></th>
+                                                <th>STT </th>
+                                                <th>
+                                                    @Html.DisplayName("Mã môn học")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Tên môn học")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Loại môn")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Số tín chỉ")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Số tiết")
+                                                </th>
+                                                <th>
+                                                    @Html.DisplayName("Mã ngành")
+                                                </th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int i = 1;
+                                                foreach (var item in dsmh)
+                                                {
+                                                    <tr>
+                                                        <th><input type="checkbox" id="monhoc-@item.ID" name="Monhoc-@item.ID" class="IDMonHoc"/></th>
+                                                        <td>@i</td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.MaMonHoc)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.TenMonHoc)
+                                                        </td>
+                                                        <td>
+                                                            @(Init.getStrLoaiMon(item.LoaiMonHoc))
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoTC)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SoTiet)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.tb_Nganh.MaNganh)
+                                                        </td>
+                                                    </tr>
+                                                    i++;
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.BatBuoc, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                <input type="radio" id="radioBatbuoc" name="Batbuoc" value="1" checked />
+                                <label class="radio-label" for="radioBatbuoc" onclick="CheckedRadio(this)">@Init.strBatBuoc</label>
+                            </div>
+                            <div class="col-md-12">
+                                <input type="radio" id="radioKhongBatbuoc" name="Batbuoc" value="0" />
+                                <label class="radio-label" for="radioKhongBatbuoc" onclick="CheckedRadio(this)">@Init.strKhongBatBuoc</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Hocki, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                @{
+                                    int hockitoida = (int)ViewBag.HocKiToiDa;
+                                    <input type="number" required class="form-control" min="1" name="Hocki" value="1" max="@(hockitoida.ToString())" oninput="CheckNumber(this, @hockitoida)" />
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nam, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-12">
+                                <input type="number" required class="form-control" min="1" name="Nam" value="1" oninput="CheckNumber(this)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    function toggle(source) {
+        var checkboxes = document.getElementsByClassName('IDMonHoc');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+
+    function CheckNumber(input, max) {
+        if (isNaN(input.value) || input.value < 1 || input.value > max) {
+            input.value = 1;
+        }
+    }
+    function CheckNumber(input) {
+        if (isNaN(input.value) || input.value < 1) {
+            input.value = 1;
+        }
+    }
+    function CheckedRadio(label) {
+        var radioId = label.getAttribute('for');
+        var radio = document.getElementById(radioId);
+        radio.checked = !radio.checked;
+    }
+    var table = new DataTable('#monhoc', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+
+        },
+        lengthChange: false,
+
+    });
+</script>

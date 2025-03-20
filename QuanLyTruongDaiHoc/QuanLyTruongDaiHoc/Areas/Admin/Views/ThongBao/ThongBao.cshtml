@@ -1,0 +1,277 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_ThongBao
+
+@{
+    ViewBag.Title = "ThongBao";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style>
+    .alert-box {
+        margin-left: 20px;
+        margin-top: 20px;
+        background-color: #f8f8f8;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        display: block;
+        width: 1100px;
+    }
+
+    .new {
+        background-color: cornsilk;
+    }
+
+    .alert-note {
+        font-size: 15px;
+        color: dimgray;
+    }
+
+    .alert-title {
+        color: cadetblue;
+        font-size: 30px;
+    }
+
+    .alert-content {
+        color: darkslategray;
+        font-size: 20px;
+    }
+
+    .alert-box p {
+        margin: 0;
+    }
+
+    .close-btn {
+        float: right;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .pagedlist {
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    .block {
+        margin-bottom: 50px;
+        margin-left: 10px;
+    }
+
+    .title {
+        font-size: 25px;
+        margin-left: 20px;
+    }
+</style>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemThongBao">
+                                Thêm thông báo
+                            </button>
+                            @Html.Action("ThemThongBao", "ThongBao")
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h4>Quản lý thông báo</h4>
+                    </div>
+                    @using (Html.BeginForm("XoaThongBao", "ThongBao", FormMethod.Post))
+                    {
+
+                        <div>
+                            <div class="card-body">
+                                @{
+                                    if (Model != null)
+                                    {
+                                        <div class="block">
+                                            <div id="alertBox" class="alert-box new">
+                                                @*<span class="close-btn" onclick="closeAlert()">&times;</span>*@
+                                                <p class="alert-note"><b><i>Tin mới nhất</i></b></p>
+                                                <p class="alert-title"><b>@Model.TieuDe</b></p>
+                                                <p class="alert-content">@Model.NoiDung</p>
+                                                @{
+                                                    <p class="alert-note">Đối tượng: @Init.getStrThongBao(Model.DoiTuongNhanTB).ToLower()</p>
+                                                }
+                                                <p class="alert-note">
+                                                    Do @Model.tb_QuanTri.tb_ThongTinCaNhan.Hoten (@Model.tb_QuanTri.MaQuanTri) đăng
+                                                </p>
+                                                <p class="alert-note">
+                                                    Ngày gửi: @Model.NgayGui
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+
+                                    using (Html.BeginForm("ChinhSuaThongBao", "ThongBao", FormMethod.Post))
+                                    {
+                                    }
+
+                                    Html.RenderAction("ThongBaoDoiTuong", "ThongBao", new { doiTuong = Init.ThongBaoSV });
+                                    Html.RenderAction("ThongBaoDoiTuong", "ThongBao", new { doiTuong = Init.ThongBaoAll });
+                                    Html.RenderAction("ThongBaoDoiTuong", "ThongBao", new { doiTuong = Init.ThongBaoGV });
+                                }
+
+                            </div>
+
+                            <div class="card-footer">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                        Lưu thay đổi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function XoaThongBao(id) {
+        var alertBox = document.getElementById("alertBox-" + id);
+        alertBox.remove();
+    }
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["SuccessThemThongBao"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemThongBao"]',
+                    icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThemThongBao"] = null;
+    }
+    if (Session["SuccessCapNhatThongBao"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessCapNhatThongBao"]',
+                    icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessCapNhatThongBao"] = null;
+    }
+    if (Session["ErrorCapNhatThongBao"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorCapNhatThongBao"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["ErrorCapNhatThongBao"] = null;
+    }
+    if (Session["SuccesssXoaThongBao"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccesssXoaThongBao"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["SuccesssXoaThongBao"] = null;
+    }
+}

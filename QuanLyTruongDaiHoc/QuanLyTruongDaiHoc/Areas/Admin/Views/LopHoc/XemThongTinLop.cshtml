@@ -1,0 +1,100 @@
+﻿
+@model QuanLyTruongDaiHoc.Models.tb_LopHoc
+
+@{
+    ViewBag.Title = "XemThongTinLop";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Thông tin lớp</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row"><label class="col-2">Mã lớp:</label><label> @Model.MaLopHoc</label></div>
+                        <div class="row"><label class="col-2">Ngành: </label><label>@Model.tb_Nganh.TenNganh</label> </div>
+                        <div class="row"><label class="col-2">Hệ đào tạo: </label> <label>@Model.tb_HeDaoTao.TenHeDaoTao</label></div>
+                        <div class="row"><label class="col-2">Giảng viên cố vấn:</label><label> @Html.ActionLink(Model.tb_GiangVien.tb_ThongTinCaNhan.Hoten, "ThongTinGiangVien", "GiangVien", new { @id = Model.ID_CoVan }, new { @class = "" })</label></div>
+                        <div class="row"><label class="col-2">Số lượng hiện tại:</label><label>@ViewBag.SLSV</label></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @Html.Action("ThemSinhVienLopHoc", "LopHoc", new { id = Model.ID, idHedaotao = Model.ID_HeDaoTao })
+        @Html.Action("XemDanhSachSinhVienLopHoc", "LopHoc", new { @id = Model.ID })
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+@{
+    if (Session["XoaSinhVienLopHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["XoaSinhVienLopHoc"]',
+
+                });
+             }
+        </script>
+        Session["XoaSinhVienLopHoc"] = null;
+    }
+
+
+    else if (Session["LoiXoaSinhVienLopHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["LoiXoaSinhVienLopHoc"]',
+                icon: 'error',
+                });
+             }
+        </script>
+        Session["LoiXoaSinhVienLopHoc"] = null;
+    }
+}
+

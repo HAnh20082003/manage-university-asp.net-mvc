@@ -1,0 +1,199 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@using System.Threading;
+
+@{
+    ViewBag.Title = "Đăng nhập - " + @Session["LoaiTK"];
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                @{
+                    if (Session["LoaiTK"].ToString() == Init.TaiKhoanGV)
+                    {
+                        <a href="@Url.Action("TrangChu", "UserGiangVien")" class="h1"><b>Trường đại học</b></a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("TrangChu", "UserSinhVien")" class="h1"><b>Trường đại học</b></a>
+                    }
+                    <p>@Session["LoaiTK"]</p>
+                }
+            </div>
+            <div class="card-body">
+                <form action="@Url.Action("DangNhap", "Account")" method="post">
+                    <div class="input-group mb-3">
+                        <input name="tendn" type="text" class="form-control" placeholder="Tên đăng nhập" value="@Session["tendn"]">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input name="mk" type="password" class="form-control" placeholder="Mật khẩu" value="@Session["mk"]">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="icheck-primary">
+                                <input name="remember" type="checkbox" id="remember">
+                                <label for="remember">
+                                    Duy trì đăng nhập
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-block btn-primary">Đăng nhập</button>
+                        </div>
+                        <!-- /.col -->
+                        <!-- /.col -->
+                    </div>
+                </form>
+
+                @*<div class="social-auth-links text-center mt-2 mb-3">
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fab fa-facebook mr-2"></i> Đăng nhập với Facebook
+                        </a>
+                        <a href="#" class="btn btn-block btn-danger">
+                            <i class="fab fa-google-plus mr-2"></i> Đăng nhập với Google+
+                        </a>
+                    </div>*@
+                <!-- /.social-auth-links -->
+
+                <p class="mb-1">
+                    <a href="@Url.Action("QuenMatKhau", "Account")">Quên mật khẩu?</a>
+                </p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    var toastMixin = Swal.mixin({
+            toast: true,
+            icon: 'success',
+            title: 'General Title',
+            animation: false,
+            position: 'top-right',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+@*document.getElementById('error').addEventListener('click', function () {
+        toastMixin.fire({
+            animation: true,
+            title: '@Session["Loi"]',
+            icon: 'error'
+        });
+    });*@
+
+
+
+</script>
+
+@{
+    if (Session["Error_tendn"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_tendn"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_tendn"] = null;
+    }
+    if (Session["Error_mk"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+            toastMixin.fire({
+            animation: true,
+                title: '@Session["Error_mk"]',
+                icon: 'error'
+                });
+        }
+        </script>
+
+        Session["Error_mk"] = null;
+    }
+    if (Session["Error_Account"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_Account"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_Account"] = null;
+    }
+}
+
+
+

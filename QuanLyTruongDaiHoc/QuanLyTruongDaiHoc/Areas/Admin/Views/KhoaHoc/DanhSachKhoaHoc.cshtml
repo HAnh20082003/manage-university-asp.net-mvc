@@ -1,0 +1,217 @@
+﻿
+
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_KhoaHoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhSachKhoaHoc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+
+
+@Html.Action("ThemKhoaHoc", "KhoaHoc")
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemKhoaHoc">
+                                Thêm khóa học
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="danhsachkhoahoc">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_Monhoc.TenMonHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.MaKhoaHoc)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TrangThai)
+                                    </th>
+
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_Monhoc.TenMonHoc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.MaKhoaHoc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.tb_GiangVien.tb_ThongTinCaNhan.Hoten)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayName(Init.getStrTrangThaiKH(item.TrangThai))
+                                    </td>
+
+                                    <td class="col-3">
+                                        @Html.ActionLink("Xem khoá học", "SuaThongTinKhoaHoc", "KhoaHoc", new { id = item.ID }, new { @class = "btn btn-sm btn-success" })
+                                        @Html.ActionLink("Xoá khóa học", "SuaThongTinKhoaHoc", "KhoaHoc", new { id = item.ID }, new { @class = "btn btn-sm btn-danger" })
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#danhsachkhoahoc', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+@{
+    if (Session["SuccessThemKhoaHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemKhoaHoc"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessThemKhoaHoc"] = null;
+    }
+    if (Session["ErrorThemKhoaHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorThemKhoaHoc"]',
+                    icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorThemKhoaHoc"] = null;
+    }
+    if (Session["SuccessSuaKhoaHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorThemKhoaHoc"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessSuaKhoaHoc"] = null;
+    }
+    if (Session["ErrorSuaKhoaHoc"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorThemKhoaHoc"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorSuaKhoaHoc"] = null;
+    }
+}
+

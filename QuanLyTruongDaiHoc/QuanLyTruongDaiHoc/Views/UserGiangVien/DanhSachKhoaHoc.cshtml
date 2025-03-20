@@ -1,0 +1,83 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_KhoaHoc>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhSachKhoaHoc";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <div class="row">
+            <div class="card col-12">
+                <div class="card-header">
+                    <h4>Danh sách khoá học của bạn</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="card col-12">
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="card-header">
+                                <h3>Khoá học @item.MaKhoaHoc</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    @{
+                                        if (item.TrangThai == Init.HoatDong)
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="small-box bg-info">
+                                                    <div class="inner">
+                                                        <h3>@item.tb_Monhoc.TenMonHoc</h3>
+                                                        <h3>@item.MaKhoaHoc</h3>
+                                                        @*<p>@item.HocKi</p>
+                                                        <p>@item.Nam</p>*@
+                                                        <p>@item.SoLuongHienTai/@item.SoLuongYeuCau</p>
+                                                        <label><i>@Init.getStrTrangThaiKH(item.TrangThai)</i></label>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="nav-icon fa fa-book"></i>
+                                                    </div>
+                                                    <a href="@Url.Action("ChamDiem", "UserGiangVien", new { id = item.ID })" class="small-box-footer">Chấm điểm<i class="fas fa-arrow-circle-right"></i></a>
+
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-3">
+                                                <div class="small-box bg-danger">
+                                                    <div class="inner">
+                                                        <h3>@item.tb_Monhoc.TenMonHoc</h3>
+                                                        <h3>@item.MaKhoaHoc</h3>
+                                                        @*<p>@item.HocKi</p>
+                                                        <p>@item.Nam</p>*@
+                                                        <p>@item.SoLuongHienTai/@item.SoLuongYeuCau</p>
+                                                        <label><i>@Init.getStrTrangThaiKH(item.TrangThai)</i></label>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="nav-icon fa fa-book"></i>
+                                                    </div>
+                                                    <div class="small-box-footer">Chấm điểm<i class="fas fa-arrow-circle-right"></i></div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+

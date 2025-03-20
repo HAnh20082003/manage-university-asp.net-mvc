@@ -1,0 +1,229 @@
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Collections.Immutable.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.IO.FileSystem.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Reflection.Metadata.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.ValueTuple.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.Web.Infrastructure.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Helpers.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Mvc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Optimization.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Razor.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\WebGrease.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Helpers.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Mvc.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Optimization.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Razor.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CoreCompileInputs.cache
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CopyComplete
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.AssemblyReference.cache
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.Interfaces.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.System.Drawing.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Buffers.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Memory.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Numerics.Vectors.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll.config
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.pdb
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.exe
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.exe.config
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csc.rsp
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.exe
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.exe.config
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\csi.rsp
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Buffers.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Memory.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Numerics.Vectors.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\System.ValueTuple.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe.config
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\vbc.rsp
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.Interfaces.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.System.Drawing.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Helpers.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Mvc.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Optimization.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Razor.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\WebGrease.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\EPPlus.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Helpers.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Mvc.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Razor.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\System.Web.Optimization.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.pdb
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.AssemblyReference.cache
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CopyComplete
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.pdb
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\PagedList.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\PagedList.Mvc.dll
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\PagedList.xml
+C:\Users\ASUS\Downloads\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\QuanLyTruongDaiHoc\bin\PagedList.Mvc.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CoreCompileInputs.cache
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\QuanLyTruongDaiHoc.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csc.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csc.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csc.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csi.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csi.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\csi.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Buffers.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Collections.Immutable.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Memory.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Numerics.Vectors.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Reflection.Metadata.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\vbc.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\vbc.rsp
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\roslyn\VBCSCompiler.exe.config
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EntityFramework.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EPPlus.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EPPlus.Interfaces.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EPPlus.System.Drawing.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Microsoft.Web.Infrastructure.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\PagedList.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\PagedList.Mvc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Helpers.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Mvc.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Optimization.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Razor.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\WebGrease.dll
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EntityFramework.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EntityFramework.SqlServer.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\EPPlus.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Microsoft.IO.RecyclableMemoryStream.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Newtonsoft.Json.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\PagedList.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\PagedList.Mvc.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Helpers.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Mvc.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Razor.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Deployment.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.WebPages.Razor.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\System.Web.Optimization.xml
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\bin\Antlr3.Runtime.pdb
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.CopyComplete
+D:\Code Saves\ASP.NET\QuanLyTruongDaiHoc1\QuanLyTruongDaiHoc\obj\Debug\QuanLyTruongDaiHoc.csproj.AssemblyReference.cache

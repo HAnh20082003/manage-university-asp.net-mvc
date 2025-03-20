@@ -1,0 +1,309 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model QuanLyTruongDaiHoc.Models.tb_SinhVien
+
+<div class="modal fade" id="modalXemThongTinSV-@Model.ID">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Thông tin cá nhân sinh viên</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div>
+                        <div class="card card-primary card-outline">
+                            <div class="card-header box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid w-25"
+                                         src="~/AnhSV/@Model.tb_ThongTinCaNhan.Anh" alt="User profile picture">
+
+                                </div>
+                                <div>
+                                    <input type="file" id="Anh" name="Anh" hidden />
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="TrangThai">Trạng Thái</label>
+                                    <div class="col-md-8 col-form-label" id="sTrangThai">
+                                        @if (Model.TrangThai == true)
+                                        {
+                                            <label><strong style="color:green">Đang Học</strong></label>
+                                        }
+                                        else
+                                        {
+                                            <label><strong style="color:red">Nghỉ Học</strong></label>
+                                        }
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="TrangThai" id="TrangThai1" value="true" checked hidden>
+                                            <label class="form-check-label" id="labelTrangThai1" for="TrangThai1" hidden>
+                                                Đang học
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="TrangThai" id="TrangThai2" value="false" hidden>
+                                            <label class="form-check-label" id="labelTrangThai2" for="TrangThai2" hidden>
+                                                Nghỉ học
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="MaSV">Mã SV:</label> <div class="col-md-8"><input type="text" id="MaSV" value="@Model.MaSinhVien" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="Lop">Lớp</label><div class="col-md-8"><input type="text" id="Lop" value="@(Model.tb_LopHoc == null ? "" : Model.tb_LopHoc.MaLopHoc)" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="Nganh">Ngành</label><div class="col-md-8"><input type="text" id="Nganh" value="@Model.tb_Nganh.TenNganh" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="KhoaVien">Khoa viện</label><div class="col-md-8"><input type="text" id="KhoaVien" value="@Model.tb_Nganh.tb_KhoaVien.TenKhoaVien" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="HeDaoTao">Hệ đào tạo</label><div class="col-md-8"><input type="text" id="HeDaoTao" value="@Model.tb_HeDaoTao.TenHeDaoTao" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="NienKhoa">Ngày nhập học</label><div class="col-md-8"><input type="text" id="NienKhoa" value="@Model.NgayNhapHoc" class="form-control" disabled /></div>
+
+                                </div>
+                                <br />
+
+                            </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+                    <div>
+                        <div class="card card-primary card-outline">
+                            <div class="card-header"><strong>Thông tin cá nhân</strong></div>
+                            <div class="card-body">
+
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="HoTen">Họ tên:</label> <div class="col-md-8"><input type="text" id="HoTen" name="HoTen" value="@Model.tb_ThongTinCaNhan.Hoten" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="NgaySinh">Ngày sinh</label><div class="col-md-8"><input type="date" id="NgaySinh" name="NgaySinh" value="@(Model.tb_ThongTinCaNhan.NgaySinh.ToString("yyyy-MM-dd"))" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="GioiTinh">Giới tính</label>
+                                    <div class="col-md-8" id="labelGioiTinh">
+                                        <input type="text" id="lbGioiTinh" name="labelGioiTinh" disabled value="@Init.getStrGioiTinh(Model.tb_ThongTinCaNhan.GioiTinh)" />
+
+                                    </div>
+                                    <div class="col-md-8" id="frmGioiTinh" hidden>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="GioiTinh" id="GioiTinh1" value="true" checked disabled>
+                                            <label class="form-check-label" for="GioiTinh1">
+                                                @Init.strNam
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="GioiTinh" id="GioiTinh2" value="false" disabled>
+                                            <label class="form-check-label" for="GioiTinh2">
+                                                @Init.strNu
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="SDT">SĐT</label><div class="col-md-8"><input type="text" id="SDT" name="SDT" value="@Model.tb_ThongTinCaNhan.SDT" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="DiaChi">Địa chỉ</label>
+                                    <div class="col-md-8"><textarea class="form-control" id="DiaChi" name="DiaChi" disabled>@Model.tb_ThongTinCaNhan.DiaChi</textarea></div>
+
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="Email1">Email 1</label><div class="col-md-8"><input type="email" id="Email1" name="Email1" value="@Model.tb_ThongTinCaNhan.Email_1" class="form-control" disabled /></div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="Email2">Email 2</label><div class="col-md-8"><input type="text" id="Email2" name="Email2" value="@Model.tb_ThongTinCaNhan.Email_2" class="form-control" disabled /></div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="CCCD">Số CCCD</label><div class="col-md-8"><input type="text" id="CCCD" name="CCCD" value="@Model.tb_ThongTinCaNhan.So_CCCD" class="form-control" disabled /></div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label" for="DanToc">Dân tộc</label><div class="col-md-8"><input type="text" id="DanToc" name="DanToc" value="@Model.tb_ThongTinCaNhan.DanToc" class="form-control" disabled /></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>Thông tin học tập</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-form-label" for="SoTC">Số tín chỉ tích lũy: @Model.SoTC_TichLuy / @ViewBag.TongTC</label>
+                                    
+                                </div>
+                                <div class="form-group row">
+                                    <div class="progress col-md-8" id="SoTC">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width:@ViewBag.Prg" aria-valuenow="@Model.SoTC_TichLuy" aria-valuemin="0" aria-valuemax="@ViewBag.TongTC"></div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="GDTCLT">
+                                        Giáo dục thể chất Lý Thuyết:
+
+                                    </label>
+                                    <label class="col-md-3 col-form-label">
+                                        @{
+                                            if (Model.GiaoDucTheChat_LT == true)
+                                            {
+                                                <strong style="color:green">Đạt</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong style="color:red">Chưa Đạt</strong>
+                                            }
+                                        }
+                                    </label>
+                                    
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="GDTCTH">
+                                        Giáo dục thể chất Thực Hành:
+
+                                    </label>
+                                    <label class="col-md-2 col-form-label" for="GDTCTH">
+                                        @{
+                                            if (Model.GiaoDucTheChat_TH == true)
+                                            {
+                                                <strong style="color:green">Đạt</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong style="color:red">Chưa Đạt</strong>
+                                            }
+                                        }
+                                    </label>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="GDQPAN">
+                                        Giáo dục QPAN:
+
+                                    </label>
+                                    <label class="col-md-2 col-form-label" for="GDQPAN">
+                                        @{
+                                            if (Model.GDQPAN == true)
+                                            {
+                                                <strong style="color:green">Đạt</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong style="color:red">Chưa Đạt</strong>
+                                            }
+                                        }
+                                    </label>
+
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="SoMonF">
+                                        Số Môn F:
+
+                                    </label>
+                                    <label class="col-md-2 col-form-label" for="SoMonF">
+                                        @{
+                                            if (Model.SoMon_F == 0)
+                                            {
+                                                <strong style="color:green">@Model.SoMon_F</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong style="color:red">@Model.SoMon_F</strong>
+                                            }
+                                        }
+                                    </label>
+                                   
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="SoCapNN">Số cấp ngoại ngữ: @Model.SoCap_NgoaiNgu</label>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="progress col-md-8" id="SoCapNN">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width:@((Model.SoCap_NgoaiNgu/6*100)+"%")" aria-valuenow="@Model.SoCap_NgoaiNgu" aria-valuemin="0" aria-valuemax="6"></div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="DiemTL">Điểm Tích Lũy: @Model.DiemTichLuy</label>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" for="TN">Trạng thái: </label>
+                                    <label class="col-md-2 col-form-label" for="TN">
+                                        @{
+                                            if (Model.TotNghiep == true)
+                                            {
+                                                <strong style="color:green">Đã tốt nghiệp</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong style="color:red">Đang học</strong>
+                                            }
+                                        }
+                                    </label>
+                                   
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+

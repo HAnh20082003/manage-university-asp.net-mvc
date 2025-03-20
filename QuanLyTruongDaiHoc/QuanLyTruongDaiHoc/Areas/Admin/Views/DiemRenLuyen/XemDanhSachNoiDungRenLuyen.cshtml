@@ -1,0 +1,366 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model IEnumerable<tb_NoiDungRenLuyen>
+@{
+    ViewBag.Title = "XemDanhSachNoiDungRenLuyen";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemMoiNoiDungRL">
+                                Thêm mới nội dung
+                            </button>
+                            @Html.Action("ThemMoiNoiDungRL", "DiemRenLuyen")
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("ThayDoiNoiDungRL", "DiemRenLuyen", FormMethod.Post))
+                    {
+                        foreach (var ndrl in Model)
+                        {
+                            <div id="divdanhsachnoidungrenluyen-@ndrl.ID">
+                                <input hidden name="hidden-@ndrl.ID" value="test" />
+                                <div class="card-header">
+                                    <button type="button" class="btn btn-lg" onclick="XoaNoiDungRL(@ndrl.ID)">
+                                        &times;
+                                    </button>
+                                    <br />
+                                    <input type="text" name="MaND-@ndrl.ID" value="@ndrl.MaNoiDung " placeholder="Mã nội dung" id="mand-@ndrl.ID" style="width: 1200px" />
+                                    <input type="text" name="TenND-@ndrl.ID" value="@ndrl.TenNoiDung" placeholder="Tên nội dung" id="tennd-@ndrl.ID" style="width: 1200px" />
+                                    @Html.DisplayName("Điểm tối đa: " + ndrl.TongToiDa)
+                                </div>
+
+                                <div class="card-body">
+                                    <table class="table table-bordered table-hover">
+                                        @{
+                                            <thead>
+                                                <tr>
+                                                    <th class="col-2">
+                                                        Mã chi tiết
+                                                    </th>
+                                                    <th class="col-8">
+                                                        Tên chi tiết
+                                                    </th>
+                                                    <th class="col-2">
+                                                        Điểm tối đa
+                                                    </th>
+                                                    <th class="col-5">
+                                                        Tính năng
+                                                    </th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @{
+                                                    List<tb_ChiTietNoiDungRenLuyen> chitietNDRL = ndrl.tb_ChiTietNoiDungRenLuyen.ToList();
+                                                    foreach (var ctdgrl in chitietNDRL)
+                                                    {
+                                                        <tr id="tredit-@ctdgrl.ID">
+
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" type="text" id="machitietrl-@ctdgrl.ID" name="Machitietrl-@ctdgrl.ID" placeholder="Mã chi tiết" value="@ctdgrl.MaChiTiet" />
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" type="text" id="tenchitietrl-@ctdgrl.ID" name="Tenchitietrl-@ctdgrl.ID" placeholder="Tên chi tiết" value="@ctdgrl.TenChiTiet" />
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" type="number" min="0" id="diemtoidarl-@ctdgrl.ID" name="Diemtoidarl-@ctdgrl.ID" value="@ctdgrl.DiemToiDa" oninput="checkNumber(this)" />
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <button type="button" class="btn btn-lg" onclick="XoachitietEdit(@ctdgrl.ID)">
+                                                                    &times;
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    <tr id="tredit-new-@ndrl.ID">
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text" id="machitietrl-new-@ndrl.ID" name="Machitietrl-new-@ndrl.ID" placeholder="Mã chi tiết" />
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="text" id="tenchitietrl-new-@ndrl.ID" name="Tenchitietrl-new-@ndrl.ID" placeholder="Tên chi tiết" />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input class="form-control" type="number" min="0" id="diemtoidarl-new-@ndrl.ID" name="Diemtoidarl-new-@ndrl.ID" value="0" oninput="checkNumber(this)" />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+
+                                        }
+                                    </table>
+                                </div>
+                            </div>
+
+                        }
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function checkNumber(input) {
+        if (isNaN(input.value) || input.value < 0) {
+            input.value = "";
+        }
+    }
+    function XoaNoiDungRL(id) {
+        var div = document.getElementById(`divdanhsachnoidungrenluyen-${id}`);
+        div.remove();
+    }
+
+    function XoachitietEdit(id) {
+        var tr = document.getElementById(`tredit-${id}`);
+        var tbody = tr.closest('tbody');
+        tbody.removeChild(tr);
+    }
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["ErrorNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorNoiDungRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["ErrorNoiDungRL"] = null;
+    }
+    if (Session["Success_ThemNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Success_ThemNoiDungRL"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["Success_ThemNoiDungRL"] = null;
+    }
+    if (Session["Error_ThemNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ThemNoiDungRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ThemNoiDungRL"] = null;
+    }
+    if (Session["Error_ThemChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ThemChiTietRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ThemChiTietRL"] = null;
+    }
+
+    if (Session["SuccessThayDoiNoiDung"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThayDoiNoiDung"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThayDoiNoiDung"] = null;
+    }
+    if (Session["Error_ChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ChiTietRL"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ChiTietRL"] = null;
+    }
+    if (Session["Error_XoaChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_XoaChiTietRL"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_XoaChiTietRL"] = null;
+    }
+
+}

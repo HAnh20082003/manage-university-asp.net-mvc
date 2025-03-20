@@ -1,0 +1,145 @@
+﻿@using QuanLyTruongDaiHoc.Models
+@model List<DSGV>
+
+
+@{
+    ViewBag.Title = "XemDSGV";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <table id="giangvien" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        STT
+                                    </th>
+                                    <th>
+                                        Họ Tên
+                                    </th>
+                                    <th>
+                                        Ngày Sinh
+                                    </th>
+                                    <th>
+                                        Giới Tính
+                                    </th>
+                                    <th>
+                                        Dân Tộc
+                                    </th>
+                                    <th>
+                                        SĐT
+                                    </th>
+                                    <th>
+                                        Địa Chỉ
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        CCCD
+                                    </th>
+                                    <th>
+                                        Ngành
+                                    </th>
+                                    <th>
+                                        Chương trình giảng dạy
+                                    </th>
+                                    <th>
+                                        trình độ
+                                    </th>
+                                    <th>Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @item.HoTen
+                                            </td>
+                                            <td>
+                                                @item.NgaySinh.ToString("dd-MM-yyyy")
+                                            </td>
+
+                                            <td>
+                                                @item.GioiTinh
+                                            </td>
+                                            <td>
+                                                @item.DanToc
+                                            </td>
+                                            <td>
+                                                @item.SDT
+                                            </td>
+                                            <td>
+                                                @item.DiaChi
+                                            </td>
+                                            <td>
+                                                @item.Email
+                                            </td>
+                                            <td>
+                                                @item.CCCD
+                                            </td>
+                                            <td>
+                                                @item.Nganh
+                                            </td>
+                                            <td>
+                                                @item.CTGD
+                                            </td>
+                                            <td>
+                                                @item.TrinhDo
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Xóa", "XoaGiangVienDS", "GiangVien", new { cccd = item.CCCD }, new { @class = "btn btn-sm btn-danger" })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            @Html.ActionLink("Lưu", "LuuDanhSach", "GiangVien", new { @class = "btn btn-lg btn-success col-3 me-md-2" })
+                            @*<button type="button" class="btn btn-lg btn-success me-md-2">
+                                    Lưu
+                                </button>*@
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#giangvien', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+</script>
+
+

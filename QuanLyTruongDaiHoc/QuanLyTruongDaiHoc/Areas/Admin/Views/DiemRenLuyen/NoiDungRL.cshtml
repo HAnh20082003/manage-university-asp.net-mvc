@@ -1,0 +1,232 @@
+﻿@using QuanLyTruongDaiHoc.Models;
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_NoiDungRenLuyen>
+@{
+    
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function XoaNoiDungRL(id) {
+        var div = document.getElementById(`divdanhsachnoidungrenluyen-${id}`);
+        div.remove();
+    }
+
+    function XoachitietEdit(id) {
+        var tr = document.getElementById(`tredit-${id}`);
+        var tbody = tr.closest('tbody');
+        tbody.removeChild(tr);
+    }
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["ErrorNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorNoiDungRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["ErrorNoiDungRL"] = "";
+    }
+    if (Session["Success_ThemNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Success_ThemNoiDungRL"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["Success_ThemNoiDungRL"] = null;
+    }
+    if (Session["Error_ThemNoiDungRL"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ThemNoiDungRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ThemNoiDungRL"] = null;
+    }
+    if (Session["Error_ThemChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ThemChiTietRL"]',
+                icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ThemChiTietRL"] = null;
+    }
+
+    if (Session["SuccessThayDoiNoiDung"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThayDoiNoiDung"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThayDoiNoiDung"] = null;
+    }
+    if (Session["Error_ChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_ChiTietRL"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_ChiTietRL"] = null;
+    }
+    if (Session["Error_XoaChiTietRL"] != null)
+    {
+
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Error_XoaChiTietRL"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["Error_XoaChiTietRL"] = null;
+    }
+
+}

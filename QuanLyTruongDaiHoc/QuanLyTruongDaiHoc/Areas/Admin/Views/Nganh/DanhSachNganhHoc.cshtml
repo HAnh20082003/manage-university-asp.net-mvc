@@ -1,0 +1,292 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Nganh>
+
+@{
+    ViewBag.Title = "DanhSachNganhHoc";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+
+
+@Html.Action("ThemNganh", "Nganh")
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemNganh">
+                                Thêm ngành đào tạo
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="nganh">
+                            @{
+
+                                int i = 1;
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MaNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TenNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.NamDaotao)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.Mota)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_KhoaVien.MaKhoaVien)
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenNganh)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NamDaotao)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Mota)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_KhoaVien.MaKhoaVien)
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Sửa Thông Tin", "Edit", new { id = item.ID }) |
+                                                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modalSuaThongTinNganh-@item.ID">
+                                                    Sửa Thông Tin
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modalXoaNganh-@item.ID">
+                                                    Xóa Ngành
+                                                </button>
+                                                @Html.Action("SuaThongTinNganh", "Nganh", new { id = item.ID })
+                                                @Html.Action("XoaNganh", "Nganh", new { id = item.ID })
+                                                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID })*@
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#nganh', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    @*document.getElementById('error').addEventListener('click', function () {
+        toastMixin.fire({
+            animation: true,
+            title: '@Session["Loi"]',
+            icon: 'error'
+        });
+    });*@
+
+
+
+</script>
+
+@{
+    if (Session["Loi"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["Loi"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["Loi"] = null;
+    }
+    if (Session["SuccessSuaNganh"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessSuaNganh"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessSuaNganh"] = null;
+    }
+    if (Session["ErrorSuaNganh"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorSuaNganh"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorSuaNganh"] = null;
+    }
+    if (Session["SuccessThemNganh"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemNganh"]',
+                icon: 'success'
+                });
+             }
+        </script>
+        Session["SuccessThemNganh"] = null;
+    }
+    if (Session["ErrorThemNganh"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+             window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorThemNganh"]',
+                icon: 'error'
+                });
+             }
+        </script>
+        Session["ErrorThemNganh"] = null;
+    }
+}
+
+
+

@@ -1,0 +1,110 @@
+﻿
+@using QuanLyTruongDaiHoc.Models;
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_SinhVien>
+
+@{
+    ViewBag.Title = "DanhSachTotNghiep";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Danh sách sinh viên đạt điều kiện tốt nghiệp</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover" id="danhsachttnghiep">
+                            @{
+
+                                int i = 1;
+                                <thead>
+                                    <tr>
+
+                                        <th>STT</th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MaSinhVien)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.Hoten)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.Email_2)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.GioiTinh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_Nganh.TenNganh)
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+
+                                            <td>@i</td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaSinhVien)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_ThongTinCaNhan.Hoten)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_ThongTinCaNhan.Email_2)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayName(Init.getStrGioiTinh(item.tb_ThongTinCaNhan.GioiTinh))
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.tb_Nganh.TenNganh)
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script>
+
+
+    var table = new DataTable('#danhsachttnghiep', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+
+    });
+
+</script>
+
+
+

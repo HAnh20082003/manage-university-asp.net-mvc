@@ -1,0 +1,297 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_DanhGiaRL>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "DanhGiaRenLuyen";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+@{
+
+    List<tb_NoiDungRenLuyen> noiDungRL = (List<tb_NoiDungRenLuyen>)ViewBag.NoiDungRL;
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            @{
+
+                tb_LichDanhGiaRL lich = (tb_LichDanhGiaRL)ViewBag.LichDGRL;
+                DateTime now = DateTime.Now;
+                if (lich != null && now >= lich.NgayMo && now <= lich.NgayDong)
+                {
+                    <div class="col-12">
+                        <div class="card">
+                            @using (Html.BeginForm("ThemDGRL", "UserSinhVien", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                foreach (var ndrl in noiDungRL)
+                                {
+                                    <div class="modal-header">
+                                        <h5>@ndrl.MaNoiDung - @ndrl.TenNoiDung</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered table-hover" id="danhgiarenluyen-@ndrl.ID">
+                                            @{
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Mã chi tiết
+                                                        </th>
+                                                        <th class="col-6">
+                                                            Tên chi tiết
+                                                        </th>
+                                                        <th class="col-1">
+                                                            Điểm SV
+                                                        </th>
+                                                        <th class="col-1">
+                                                            Điểm GV
+                                                        </th>
+                                                        <th class="col-1">
+                                                            Điểm QT
+                                                        </th>
+                                                        <th>
+                                                            Điểm tối đa
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @{
+                                                        List<tb_ChiTietDanhGiaRL> chitietDGRL = null;
+                                                        if (ViewBag.ChitietDGRL != null)
+                                                        {
+                                                            chitietDGRL = (List<tb_ChiTietDanhGiaRL>)ViewBag.ChitietDGRL;
+                                                        }
+                                                        List<tb_ChiTietNoiDungRenLuyen> chitietNDRL = ndrl.tb_ChiTietNoiDungRenLuyen.ToList();
+                                                        foreach (var ctdgrl in chitietNDRL)
+                                                        {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => ctdgrl.MaChiTiet)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => ctdgrl.TenChiTiet)
+                                                                </td>
+                                                                @{
+
+                                                                    if (ViewBag.ChitietDGRL != null)
+                                                                    {
+                                                                        tb_ChiTietDanhGiaRL chitiet = chitietDGRL.SingleOrDefault(n => n.ID_ChiTietNoiDung == ctdgrl.ID);
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="number" min="0" max="@ctdgrl.DiemToiDa" id="diemsvdanhgia-@ctdgrl.ID" name="Diemsvdanhgia-@ctdgrl.ID" value="@chitiet.DiemSVDanhGia" oninput="checkNumber(this,@ctdgrl.DiemToiDa)" />
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => chitiet.DiemGVDanhGia)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => chitiet.DiemQTDanhGia)
+                                                                        </td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>
+                                                                            <div class="form-group">
+                                                                                <input class="form-control" type="number" min="0" max="@ctdgrl.DiemToiDa" id="diemsvdanhgia-@ctdgrl.ID" name="Diemsvdanhgia-@ctdgrl.ID" value="0" oninput="checkNumber(this,@ctdgrl.DiemToiDa)" />
+                                                                            </div>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            @Html.DisplayName("0")
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayName("0")
+                                                                        </td>
+                                                                    }
+                                                                }
+
+                                                                <td>
+                                                                    @Html.DisplayFor(modelItem => ctdgrl.DiemToiDa)
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+
+                                            }
+                                        </table>
+                                    </div>
+                                }
+                                <div class="modal-footer">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                            Lưu thay đổi
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Danh sách đánh giá rèn luyện của bạn</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover" id="dsrl">
+                                @{
+
+                                    int j = 1;
+                                    <thead>
+                                        <tr>
+
+                                            <th>STT</th>
+                                            <th>
+                                                @Html.DisplayName("Tổng điểm")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Xếp loại")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Học kì")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Năm")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Ghi chú")
+                                            </th>
+                                            <th>
+                                                @Html.DisplayName("Chức năng")
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+
+                                                <td>@j</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TongDiem)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.XepLoai)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.HocKi)
+                                                </td>
+
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Nam)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.GhiChu)
+                                                </td>
+                                                <td>
+
+                                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalXemChiTietRL-@item.ID">
+                                                        Xem chi tiết
+                                                    </button>
+                                                    @Html.Action("XemChiTietRL", "UserSinhVien", new { id = item.ID })
+                                                </td>
+                                            </tr>
+                                            j++;
+                                        }
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+@{
+    foreach (var item in noiDungRL)
+    {
+        <script>
+
+
+            var table = new DataTable('#danhgiarenluyen-@item.ID', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+                },
+            });
+
+
+
+        </script>
+    }
+}
+<script>
+    var table = new DataTable('#dsrl', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+    danhsachrl
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+
+@{
+    if (Session["SuccessThemDG"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemDG"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThemDG"] = null;
+    }
+}

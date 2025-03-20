@@ -1,0 +1,118 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_SinhVien>
+
+
+
+<div class="modal fade" id="modalThemSinhVienLopHoc">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @using (Html.BeginForm("ThemSinhVienLopHoc", "LopHoc", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="text" name="IdLop" value="@ViewBag.IdLop" hidden />
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm sinh viên vào lớp</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+
+
+                            <table class="table table-bordered table-hover col-md-12" id="sinhvien">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>STT </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.MaSinhVien)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.Hoten)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.GioiTinh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_ThongTinCaNhan.NgaySinh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_Nganh.TenNganh)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.tb_HeDaoTao.TenHeDaoTao)
+                                        </th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <th><input type="checkbox" id="masinhvien" name="masinhvien" class="MASV" value="@item.ID" /></th>
+                                                <td>@i</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MaSinhVien)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_ThongTinCaNhan.Hoten)
+                                                </td>
+                                                <td>
+                                                    @(item.tb_ThongTinCaNhan.GioiTinh == true ? "Nam" : "Nữ")
+                                                </td>
+                                                <td>@item.tb_ThongTinCaNhan.NgaySinh.ToString("dd/MM/yyyy")</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_Nganh.TenNganh)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_HeDaoTao.TenHeDaoTao)
+                                                </td>
+
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    //new DataTable('#example-1');
+    //new DataTable('#example-2');
+
+    var table = new DataTable('#sinhvien', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+
+        },
+        lengthChange: false,
+
+    });
+
+</script>

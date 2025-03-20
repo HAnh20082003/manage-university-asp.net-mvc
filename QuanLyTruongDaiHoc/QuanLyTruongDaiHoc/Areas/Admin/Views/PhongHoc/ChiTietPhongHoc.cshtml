@@ -1,0 +1,143 @@
+﻿@model QuanLyTruongDaiHoc.Models.tb_PhongHoc
+<div class="modal fade" id="modalChiTietPhongHoc-@Model.ID">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            @using (Html.BeginForm("ChiTietPhongHoc", "PhongHoc", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Chi tiết phòng học</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.ID)
+                    <div class="form-horizontal">
+                        <div class="col-md-12">
+                            <label>Mã Phòng Học:</label>
+                            <div class="form-group">
+                                <input type="text" name="MaPhongHoc" id="MaPhongHoc-@Model.ID" value="@Model.MaPhongHoc"  class="form-control" />
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <label>Loại Phòng Học:</label>
+                            <div class="form-group">
+                                <select name="LoaiPhongHoc" class="form-control" >
+                                    <option value="Lý thuyết" selected>Lý thuyết</option>
+                                    <option value="Thực hành">Thực hành</option>
+                                </select>
+                                @*<input type="text" name="LoaiPhongHoc" id="LoaiPhongHoc-@Model.ID" value="@Model.LoaiPhongHoc"  class="form-control" />*@
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <label>Vị trí:</label>
+                            <div class="form-group">
+                                <textarea class="form-control" name="ViTri" id="ViTri-@Model.ID" >@Model.ViTri</textarea>
+                            </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <label>Sức chứa</label>
+                            <div class="form-group">
+                                <input type="number" name="SucChua" id="SucChua-@Model.ID" value="@Model.SucChua"  min="0" max="999" class="form-control" />
+                            </div>
+
+                        </div>
+                        @*<div class="col-md-12" id="lbTrangThai-@Model.ID">
+                            <label>Trạng thái:  <label style="color:@(Model.TrangThai==true?"green":"red")">@(Model.TrangThai == true ? "Đang sử dụng":"Bảo trì")</label></label>
+                            
+
+                        </div>*@
+                        <div class="col-md-12" id="rdiTrangThai-@Model.ID" >
+                            <label>Trạng thái:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="TrangThai1" name="TrangThai" value="true" @(Model.TrangThai==true?"checked":"") >
+                                <label class="form-check-label" for="TrangThai1">
+                                    Hoạt động
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="TrangThai2" name="TrangThai" value="false"  @(Model.TrangThai==false?"checked":"")>
+                                <label class="form-check-label" for="TrangThai2">
+                                    Bảo trì
+                                </label>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    
+                    <div class="row">
+
+                        @*<a href="#" class="btn btn-danger" onclick="suathongtin(this.id)" id="Huy-@Model.ID" hidden>Hủy</a>
+                        <button type="submit" class="btn btn-success" id="Luu-@Model.ID" hidden>Lưu</button>*@
+                        <button   class="btn btn-primary" onclick="suathongtin(this.id)" id="Sua-@Model.ID">Sửa thông tin</button>
+                    </div>
+                    
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+@*<script>
+    function suathongtin(id) {
+        if (id == 'Sua-@Model.ID') {
+            document.getElementById('Sua-@Model.ID').hidden = true;
+            document.getElementById('Huy-@Model.ID').hidden = false;
+            document.getElementById('Luu-@Model.ID').hidden = false;
+
+            console.log(2);
+
+            document.getElementById('MaPhongHoc-@Model.ID').disabled = false;
+            document.getElementById('ViTri-@Model.ID').disabled = false;
+            document.getElementById('LoaiPhongHoc-@Model.ID').disabled = false;
+            document.getElementById('SucChua-@Model.ID').disabled = false;
+
+            document.getElementById('lbTrangThai-@Model.ID').hidden = true;
+            document.getElementById('rdiTrangThai-@Model.ID').hidden = false;
+
+        }
+        else if (id == 'Huy-@Model.ID') {
+            document.getElementById('Sua-@Model.ID').hidden = false;
+            document.getElementById('Huy-@Model.ID').hidden = true;
+            document.getElementById('Luu-@Model.ID').hidden = true;
+
+            document.getElementById('MaPhongHoc-@Model.ID').disabled = true;
+            document.getElementById('ViTri-@Model.ID').disabled = true;
+            document.getElementById('LoaiPhongHoc-@Model.ID').disabled = true;
+            document.getElementById('SucChua-@Model.ID').disabled = true;
+
+            document.getElementById('lbTrangThai-@Model.ID').hidden = false;
+            document.getElementById('rdiTrangThai-@Model.ID').hidden = true;
+
+
+        }
+        else {
+            document.getElementById('Sua-@Model.ID').hidden = false;
+            document.getElementById('Huy-@Model.ID').hidden = true;
+            document.getElementById('Luu-@Model.ID').hidden = true;
+
+            document.getElementById('MaPhongHoc-@Model.ID').disabled = true;
+            document.getElementById('ViTri-@Model.ID').disabled = true;
+            document.getElementById('LoaiPhongHoc-@Model.ID').disabled = true;
+            document.getElementById('SucChua-@Model.ID').disabled = true;
+
+            document.getElementById('lbTrangThai-@Model.ID').hidden = false;
+            document.getElementById('rdiTrangThai-@Model.ID').hidden = true;
+        }
+    }
+
+</script>*@

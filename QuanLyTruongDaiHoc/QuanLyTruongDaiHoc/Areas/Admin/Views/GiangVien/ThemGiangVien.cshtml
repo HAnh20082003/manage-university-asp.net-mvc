@@ -1,0 +1,163 @@
+﻿@model QuanLyTruongDaiHoc.Models.tb_GiangVien
+@using QuanLyTruongDaiHoc.Models;
+
+<div class="modal fade" id="modalThemGiangVien">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            @using (Html.BeginForm("ThemGiangVien", "GiangVien", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm giảng viên</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @*<div class="form-group">
+                                <label>Mã Sinh Viên:</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="MaSV" id="MaSV" class="form-control">
+                                </div>
+                            </div>*@
+                        <div class="form-group">
+                            <label>Họ tên:</label>
+                            <div class="col-md-12">
+                                <input type="text" name="TenGV" id="TenGV" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Giới tính:</label>
+                            <div class="col-md-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="GioiTinh" id="GioiTinh1" value="true" checked>
+                                    <label class="form-check-label" for="GioiTinh1">
+                                        @Init.strNam
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="GioiTinh" id="GioiTinh2" value="false">
+                                    <label class="form-check-label" for="GioiTinh2">
+                                        @Init.strNu
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Dân tộc:</label>
+                            <div class="col-md-12">
+                                <input type="text" id="DanToc" name="DanToc" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày sinh:</label>
+                            <div class="col-md-12">
+                                <input type="date" id="NgaySinh" name="NgaySinh" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <div class="col-md-12">
+                                <input type="tel" id="SDT" name="SDT" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa chỉ</label>
+                            <div class="col-md-12">
+                                <textarea id="DiaChi" name="DiaChi" class="form-control"></textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <div class="col-md-12">
+                                <input type="email" id="Email1" name="Email1" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số CCCD</label>
+                            <div class="col-md-12">
+                                <input type="text" id="SoCCCD" name="SoCCCD" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Ảnh 3x4</label>
+                            <div class="col-md-12">
+                                <input type="file" aria-label="Chọn ảnh" name="Anh" id="Anh">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Trình độ:</label>
+                            <div class="col-md-12">
+                                <input type="text" id="TrinhDo" name="TrinhDo" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Chuyên ngành</label>
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Nganh", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Chương trình giảng dạy</label>
+                            <div class="col-md-12">
+                                <input type="text" id="CTGD" name="CTGD" class="form-control" />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Lớp</label>
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Lop", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+
+                        </div>
+
+                        @*<div class="form-group">
+                                <label>Hệ Đào Tạo</label>
+                                <div class="col-md-12">
+                                    @Html.DropDownList("ID_HeDaoTao", null, htmlAttributes: new { @class = "form-control" })
+                                </div>
+
+                            </div>*@
+
+
+                        @*<div class="form-group"></div>
+
+                            <div class="form-group"></div>
+                            <div class="form-group"></div>
+                            <div class="form-group"></div>
+                            <div class="form-group"></div>*@
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+            }
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+

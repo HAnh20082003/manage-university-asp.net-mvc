@@ -1,0 +1,239 @@
+﻿
+@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_Chuongtrinhdaotao>
+@using QuanLyTruongDaiHoc.Models
+@{
+    ViewBag.Title = "XemCTDT";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+
+@{
+    var nganh = (tb_Nganh)ViewBag.Nganh;
+}
+
+@Html.Action("ThemChuongtrinhDaotao", "Chuongtrinhdaotao", new { MaNganh = nganh.ID })
+
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemCTDT">
+                                Thêm chương trình đào tạo
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-header">
+                        <h4>Chương trình đào tạo ngành @nganh.TenNganh</h4>
+                    </div>
+
+                    @using (Html.BeginForm("LuuThayDoiCTDT", "Chuongtrinhdaotao", FormMethod.Post))
+                    {
+                        <input name="Manganh" hidden value="@nganh.ID" />
+                        foreach (var item in ViewBag.HocKi)
+                        {
+                            <div class="card-header">
+                                <label> Năm @item.Nam - Học kì @item.Hocki</label>
+                            </div>
+                            <div class="card-body">
+
+
+
+                                <table class="table table-bordered table-hover" id="chuongtrinhdaotao">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã môn học</th>
+                                            <th class="col-6">Tên môn học</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.BatBuoc)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.SoTC)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.SoTiet)
+                                            </th>
+                                            @*<th>
+                                                    @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                                                </th>*@
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Nganh.MaNganh)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var itemchild in Model)
+                                        {
+                                            if (itemchild.Nam == item.Nam && itemchild.Hocki == item.Hocki)
+                                            {
+                                                <tr id="trctdt-@itemchild.ID">
+                                                    <td>@Html.DisplayFor(modelItem => itemchild.tb_Monhoc.MaMonHoc)</td>
+                                                    <td>@Html.DisplayFor(modelItem => itemchild.tb_Monhoc.TenMonHoc)</td>
+                                                    <td>
+                                                        @*@Html.DisplayFor(modelItem => item.BatBuoc)*@
+                                                        @{
+                                                            if (itemchild.BatBuoc == true)
+                                                            {
+                                                                <input type="checkbox" disabled checked />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" disabled />
+                                                            }
+                                                        }
+
+                                                        @*@(item.BatBuoc==true?"Bắt buộc":"Không")*@
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.tb_Monhoc.SoTC)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.tb_Monhoc.SoTiet)
+                                                    </td>
+                                                    @*<td>
+                                                            @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                                                        </td>*@
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => itemchild.tb_Nganh.MaNganh)
+                                                    </td>
+                                                    <td style="cursor: pointer;font-size: 20px" onclick="XoaCTDT(@itemchild.ID)">
+                                                        &times;
+                                                        <input hidden name="hidden-@itemchild.ID" value="abc" />
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        }
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+
+
+
+@*<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+
+
+        var table = new DataTable('#chuongtrinhdaotao', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+            },
+        });
+
+    </script>*@
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    function XoaCTDT(id) {
+        var tr = document.getElementById(`trctdt-${id}`);
+        tr.remove();
+    }
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+@{
+    if (Session["SuccessLuuThayDoi"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessLuuThayDoi"]',
+                    icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessLuuThayDoi"] = null;
+    }
+    if (Session["ErrorLuuThayDoiCTDT"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["ErrorLuuThayDoiCTDT"]',
+                    icon: 'error'
+                });
+            }
+        </script>
+        Session["ErrorLuuThayDoiCTDT"] = null;
+    }
+}
+

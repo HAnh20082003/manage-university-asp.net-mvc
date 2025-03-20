@@ -1,0 +1,186 @@
+﻿@model IEnumerable<QuanLyTruongDaiHoc.Models.tb_MonHocCoTheDay>
+@using QuanLyTruongDaiHoc.Models;
+@{
+    ViewBag.Title = "MonHocCoTheDay";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<section class="content">
+    <div class="container-fluid">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-lg btn-primary me-md-2" data-toggle="modal" data-target="#modalThemMonCoTheDay">
+                                Thêm môn
+                            </button>
+                            @Html.Action("ThemMonCoTheDay", "UserGiangVien")
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h4> Danh sách môn học bạn có thể dạy</h4>
+                    </div>
+                    <div class="card-header">
+                        <h4> Chuyên ngành <span>@((string)ViewBag.ChuyenNganh)</span></h4>
+                    </div>
+                    @using (Html.BeginForm("LuuThayDoiMonHocCoTheDay", "UserGiangVien", FormMethod.Post))
+                    {
+                        <div class="card-body">
+                            <table class="table table-bordered table-hover" id="monhoccotheday">
+                                @{
+
+                                    int i = 1;
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.MaMonHoc)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.TenMonHoc)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.tb_Monhoc.LoaiMonHoc)
+                                            </th>
+                                            <th>Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr id="tr-monhoc-@item.ID">
+                                                <td>@i</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_Monhoc.MaMonHoc)
+                                                    <input hidden name="hidden-@item.ID" value="abc" />
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.tb_Monhoc.TenMonHoc)
+                                                </td>
+                                                <td>
+                                                    @Init.getStrLoaiMon(item.tb_Monhoc.LoaiMonHoc)
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-lg" onclick="XoaMonHoc(@item.ID)">
+                                                        &times
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    </tbody>
+                                }
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-lg btn-primary me-md-2">
+                                    Lưu thay đổi
+                                </button>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    function XoaMonHoc(id) {
+        var tr = document.getElementById(`tr-monhoc-${id}`)
+        tr.remove();
+    }
+
+    var table = new DataTable('#giaychungnhan', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json',
+        },
+    });
+
+    var toastMixin = Swal.mixin({
+        toast: true,
+        icon: 'success',
+        title: 'General Title',
+        animation: false,
+        position: 'top-right',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>
+
+@{
+    if (Session["SuccessThayDoiMonHocCoTheDay"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThayDoiMonHocCoTheDay"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThayDoiMonHocCoTheDay"] = null;
+    }
+    if (Session["SuccessThemMonHocCoTheDay"] != null)
+    {
+        <script>
+            var toastMixin = Swal.mixin({
+                    toast: true,
+                icon: 'success',
+                title: 'General Title',
+                animation: false,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+                    window.onload = (event) => {
+                toastMixin.fire({
+                animation: true,
+                title: '@Session["SuccessThemMonHocCoTheDay"]',
+                icon: 'success'
+                });
+            }
+        </script>
+        Session["SuccessThemMonHocCoTheDay"] = null;
+    }
+
+}
+
